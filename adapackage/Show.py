@@ -7,12 +7,12 @@ import random
 class Show:
     """
     Class used to represent a show in the zoo
-    A show is a list of m different acts
+    A show is a set of m different acts
 
     Atributes
     ---------
-    acts : list
-        The list of different acts in the show
+    acts : set
+        The set of different acts in the show
 
     Methods
     -------
@@ -23,8 +23,8 @@ class Show:
         """
         Parameters
         ----------
-        acts : list
-            The list of different acts in the show
+        acts : set
+            The set of different acts in the show
         """
         self.acts = acts
 
@@ -53,18 +53,18 @@ class Show:
             The randomly generated show for the given values of m, k and animals
         """
         opening_act: Act = Act.generate_opening_act(m, k, animals)
-        copy_of_opening_act: Act = Act(opening_act.scenes.copy())
+        copy_of_scenes_in_opening_act: list[Scene] = list(opening_act.scenes.copy())
 
-        acts: list[Act] = [opening_act]
+        acts: set[Act] = {opening_act}
 
         for i in range(1, m):
-            scenes: list[Scene] = []
+            scenes: set[Scene] = set()
 
             for j in range(k):
-                left_scenes: int = len(copy_of_opening_act.scenes)
+                left_scenes: int = len(copy_of_scenes_in_opening_act)
                 random_scene = random.randint(0, left_scenes - 1)
-                scenes.append(copy_of_opening_act.scenes.pop(random_scene))
+                scenes.add(copy_of_scenes_in_opening_act.pop(random_scene))
 
-            acts.append(Act(scenes))
+            acts.add(Act(scenes))
 
         return Show(acts)

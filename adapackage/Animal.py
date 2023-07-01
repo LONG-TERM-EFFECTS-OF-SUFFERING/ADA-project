@@ -14,22 +14,18 @@ class Animal:
 
 	Methods
 	-------
-	sort(animals)
-		Returns the list of animals in ascending order
 
-	print(animals)
-		Print the animals in an understandable way
 	"""
 
-	POSSIBLE_ANIMALS: list[str] = ["Dog", "Cat", "Tapir", "Otter", "Centipede", "Dragonfly", "Capybara", "Parrot", "Alligator",
-								   "Boa", "Crocodile", "Zebra", "Black panther", "Tiger", "Lion", "Elephant", "Giraffe", "Hippopotamus", "Rhinoceros",
-								   "Turtle", "Lizard", "Bear", "Koala", "Penguin", "Camel", "Sheep", "Pig", "Eagle", "Owl", "Duck", "Goose", "Swan",
-								   "Flamingo", "Pigeon", "Raven", "Jellyfish", "Octopus", "Shark", "Whale", "Dolphin", "Seal", "Starfish", "Butterfly",
-								   "Ant", "Bee", "Spider", "Puma", "Wolf", "Fox", "Horse", "Rabbit", "Turkey", "Panda", "Kangaroo", "Squirrel", "Deer",
-								   "Salmon", "Bat", "Lynx", "Mouse", "Chimpanzee", "Gorilla", "Monkey", "Cheetah", "Condor", "Crab", "Lobster", "Scorpion",
-								   "Ostrich", "Sloth", "Frog", "Hamster", "Iguana", "Chameleon", "Caterpillar", "Ladybug", "Jaguar", "Dove", "Goat",
-								   "Cow", "Chicken", "Goldfish", "Seahorse", "Piranha", "Squid", "Gazelle", "Hyeana", "Racoon", "Beetle", "Worm", "Donkey",
-								   "Grasshopper", "Mantis", "Fly", "Beaver", "Mole", "Moth", "Termite", "Cicada", "Armadillo", "Buffalo", "Bull", "Coyote"]
+	POSSIBLE_ANIMALS: list[str] = ["Dog", "Cat", "Tapir", "Otter", "Centipede", "Dragonfly", "Capybara", "Parrot"] # "Alligator",
+								   # "Boa", "Crocodile", "Zebra", "Black panther", "Tiger", "Lion", "Elephant", "Giraffe", "Hippopotamus", "Rhinoceros",
+								   # "Turtle", "Lizard", "Bear", "Koala", "Penguin", "Camel", "Sheep", "Pig", "Eagle", "Owl", "Duck", "Goose", "Swan",
+								   # "Flamingo", "Pigeon", "Raven", "Jellyfish", "Octopus", "Shark", "Whale", "Dolphin", "Seal", "Starfish", "Butterfly",
+								   # "Ant", "Bee", "Spider", "Puma", "Wolf", "Fox", "Horse", "Rabbit", "Turkey", "Panda", "Kangaroo", "Squirrel", "Deer",
+								   # "Salmon", "Bat", "Lynx", "Mouse", "Chimpanzee", "Gorilla", "Monkey", "Cheetah", "Condor", "Crab", "Lobster", "Scorpion",
+								   # "Ostrich", "Sloth", "Frog", "Hamster", "Iguana", "Chameleon", "Caterpillar", "Ladybug", "Jaguar", "Dove", "Goat",
+								   # "Cow", "Chicken", "Goldfish", "Seahorse", "Piranha", "Squid", "Gazelle", "Hyeana", "Racoon", "Beetle", "Worm", "Donkey",
+								   # "Grasshopper", "Mantis", "Fly", "Beaver", "Mole", "Moth", "Termite", "Cicada", "Armadillo", "Buffalo", "Bull", "Coyote"]
 
 	def __init__(self, name: str, greatness: int):
 		"""
@@ -45,16 +41,17 @@ class Animal:
 		self.gretness = greatness
 
 	def __str__(self):
-		return f"{self.name}, {self.gretness}"
+		return f"({self.name} {self.gretness})"
 
+	@staticmethod
 	def display_list(animals: list) -> str:
 		return '[ ' + ' '.join(str(animal) for animal in animals) + " ]"
 
 	def __eq__(self, other_animal: 'Animal'):
 		return self.gretness == other_animal.gretness
 
-	def __ne__(self, other_animal: 'Animal'):
-		return self.gretness != other_animal.gretness
+	def __hash__(self):
+		return hash(self.name) + hash(self.gretness)
 
 	def __lt__(self, other_animal: 'Animal'):
 		return self.gretness < other_animal.gretness
@@ -80,7 +77,7 @@ class Animal:
 		Returns
 		-------
 		list
-			List of n random non-repeated animals already sorted in ascending order by greatness
+			list of n random non-repeated animals already sorted in ascending order by greatness
 		"""
 
 		animals: list['Animal'] = []
@@ -89,7 +86,7 @@ class Animal:
 		while len(animals) < n:
 			animal = Animal(random.choice(Animal.POSSIBLE_ANIMALS), i)
 
-			if animal not in animals:
+			if animal.name not in [element.name for element in animals]:
 				animals.append(animal)
 				i += 1
 

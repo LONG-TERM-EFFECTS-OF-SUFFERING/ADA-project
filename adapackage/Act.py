@@ -5,12 +5,12 @@ from adapackage.Scene import Scene
 class Act:
 	"""
 	Class used to represent an act in the show
-	An act is a list of k different scenes
+	An act is a set of k different scenes
 
 	Atributes
 	---------
-	scenes : list
-		The list of different scenes in the act
+	scenes : set
+		The set of different scenes in the act
 	gratness : int
 		The greatness associated with the act (sum of greatness of all scenes)
 	
@@ -19,12 +19,12 @@ class Act:
 	
 	"""
 
-	def __init__(self, scenes: list[Scene]):
+	def __init__(self, scenes: set[Scene]):
 		"""
 		Parameters
 		----------
-		scenes : list
-			The list of different scenes in the act
+		scenes : set
+			The set of different scenes in the act
 		"""
 		self.scenes = scenes
 		self.greatness = sum(scene.greatness for scene in scenes)
@@ -35,8 +35,8 @@ class Act:
 	def __eq__(self, other_act):
 		return self.scenes == other_act.scenes
 
-	def __ne__(self, other_act):
-		return self.scenes != other_act.scenes
+	def __hash__(self):
+		return hash(frozenset(self.scenes))
 
 	def __lt__(self, other_act):
 		return self.greatness < other_act.greatness
@@ -77,12 +77,12 @@ class Act:
 			The scenes in the opening act will be part of the other m-1 acts of the show
 		"""
 
-		act: list[Scene] = []
+		act: set[Scene] = set()
 
 		while len(act) < (m - 1) * k:
 			scene: Scene = Scene.generate_random_scene(animals)
 
 			if scene not in act:
-				act.append(scene)
+				act.add(scene)
 
 		return Act(act)
