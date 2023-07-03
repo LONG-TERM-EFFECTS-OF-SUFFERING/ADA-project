@@ -4,20 +4,21 @@ import random
 
 class Scene:
 	"""
-	Class used to represent a Scene in the show
-	A scene is a set of 3 different animals
-	
+	Class used to represent a Scene in the show.
+
+	- A scene is a set of 3 different animals.
+
 
 	Atributes
 	---------
 	animals : set
-		The set of animals in the scene
+		The set of animals in the scene.
 	gratness : int
-		The greatness associated with the scene (sum of greatness of all animals)
+		The greatness associated with the scene (sum of greatness of all animals).
 
 	Methods
 	-------
-	
+
 	"""
 
 	def __init__(self, animals: set[Animal]):
@@ -25,7 +26,7 @@ class Scene:
 		Parameters
 		----------
 		animals : set[Animal]
-			The set of animals in the scene
+			The set of animals in the scene.
 		"""
 		self.animals = animals
 		self.greatness = sum(animal.gretness for animal in animals)
@@ -57,17 +58,17 @@ class Scene:
 	@staticmethod
 	def generate_random_scene(animals: list[Animal]) -> 'Scene':
 		"""
-		Generate a random scene with 3 different animals
+		Generate a random scene with 3 different animals.
 
 		Parameters
 		----------
 		animals : list[Animal]
-			The list of possible animals in the show
+			The list of possible animals in the show.
 
 		Returns
 		-------
 		Scene
-			A scene with 3 different randomly selected animals
+			A scene with 3 different randomly selected animals.
 		"""
 
 		scene: set[Animal] = set()

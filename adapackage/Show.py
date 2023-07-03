@@ -5,66 +5,68 @@ import random
 
 
 class Show:
-    """
-    Class used to represent a show in the zoo
-    A show is a set of m different acts
+	"""
+	Class used to represent a show in the zoo.
 
-    Atributes
-    ---------
-    acts : set
-        The set of different acts in the show
+	- A show is a set of m different acts.
 
-    Methods
-    -------
+	Atributes
+	---------
+	acts : set
+		The set of different acts in the show.
 
-    """
+	Methods
+	-------
 
-    def __init__(self, acts: list[Act]):
-        """
-        Parameters
-        ----------
-        acts : set
-            The set of different acts in the show
-        """
-        self.acts = acts
+	"""
 
-    def __str__(self):
-        return "{\n" + "\n".join(str(act) for act in self.acts) + "\n}"
+	def __init__(self, acts: list[Act]):
+		"""
+		Parameters
+		----------
+		acts : set
+			The set of different acts in the show.
+		"""
+		self.acts = acts
 
-    @staticmethod
-    def generate_random_show(m: int, k: int, animals: list[Animal]) -> 'Show':
-        """
-        Generate a random show with m different acts
-        The first act of the show is the opening act, that has (m - 1) * k different scenes
-        In the other m-1 acts there are k different scenes and each scene comes from the opening act
+	def __str__(self):
+		return "{\n" + "\n".join(str(act) for act in self.acts) + "\n}"
 
-        Parameters
-        ----------
-        m : int
-            The number of acts in the show
-        k : int
-            The number of scenes in each act
-        animals : list
-            The list of animals that can be used in the show
+	@staticmethod
+	def generate_random_show(m: int, k: int, animals: list[Animal]) -> 'Show':
+		"""
+		Generate a random show with m different acts.
 
-        Returns
-        -------
-        show : Show
-            The randomly generated show for the given values of m, k and animals
-        """
-        opening_act: Act = Act.generate_opening_act(m, k, animals)
-        copy_of_scenes_in_opening_act: list[Scene] = list(opening_act.scenes.copy())
+		- The first act of the show is the opening act, that has (m - 1) * k different scenes.
+		- The other (m - 1) acts there are k different scenes and each scene comes from the opening act.
 
-        acts: set[Act] = {opening_act}
+		Parameters
+		----------
+		m : int
+			The number of acts in the show.
+		k : int
+			The number of scenes in each act.
+		animals : list
+			The list of animals that can be used in the show.
 
-        for i in range(1, m):
-            scenes: set[Scene] = set()
+		Returns
+		-------
+		show : Show
+			The randomly generated show for the given values of m, k and animals.
+		"""
+		opening_act: Act = Act.generate_opening_act(m, k, animals)
+		copy_of_scenes_in_opening_act: list[Scene] = list(opening_act.scenes.copy())
 
-            for j in range(k):
-                left_scenes: int = len(copy_of_scenes_in_opening_act)
-                random_scene = random.randint(0, left_scenes - 1)
-                scenes.add(copy_of_scenes_in_opening_act.pop(random_scene))
+		acts: set[Act] = {opening_act}
 
-            acts.add(Act(scenes))
+		for i in range(1, m):
+			scenes: set[Scene] = set()
 
-        return Show(acts)
+			for j in range(k):
+				left_scenes: int = len(copy_of_scenes_in_opening_act)
+				random_scene = random.randint(0, left_scenes - 1)
+				scenes.add(copy_of_scenes_in_opening_act.pop(random_scene))
+
+			acts.add(Act(scenes))
+
+		return Show(acts)

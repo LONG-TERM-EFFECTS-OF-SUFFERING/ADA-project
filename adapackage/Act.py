@@ -4,19 +4,20 @@ from adapackage.Scene import Scene
 
 class Act:
 	"""
-	Class used to represent an act in the show
-	An act is a set of k different scenes
+	Class used to represent an act in the show.
+
+	- An act is a set of k different scenes.
 
 	Atributes
 	---------
 	scenes : set
-		The set of different scenes in the act
+		The set of different scenes in the act.
 	gratness : int
-		The greatness associated with the act (sum of greatness of all scenes)
-	
+		The greatness associated with the act (sum of greatness of all scenes).
+
 	Methods
 	-------
-	
+
 	"""
 
 	def __init__(self, scenes: set[Scene]):
@@ -24,7 +25,7 @@ class Act:
 		Parameters
 		----------
 		scenes : set
-			The set of different scenes in the act
+			The set of different scenes in the act.
 		"""
 		self.scenes = scenes
 		self.greatness = sum(scene.greatness for scene in scenes)
@@ -56,25 +57,27 @@ class Act:
 	@staticmethod
 	def generate_opening_act(m: int, k: int, animals: list[Animal]) -> 'Act':
 		"""
-		Generate the opening act of the show
-		The opening act has (m - 1) * k different scenes
+		Generate the opening act of the show.
+
+		- The opening act has (m - 1) * k different scenes.
 
 		Parameters
 		----------
 		m : int
-			The number of acts in the show
+			The number of acts in the show.
 
 		k : int
-			The number of scenes in each act
+			The number of scenes in each act.
 
 		animals : list
-			The list of possbile animals in the show
+			The list of possbile animals in the show.
 
 		Returns
 		-------
 		Act
-			The opening act of the show with (m - 1) * k different randomly generated scenes
-			The scenes in the opening act will be part of the other m-1 acts of the show
+			The opening act of the show with (m - 1) * k different randomly generated scenes.
+
+			- The scenes in the opening act will be part (not necessarily all) of the other (m - 1) acts of the show.
 		"""
 
 		act: set[Scene] = set()

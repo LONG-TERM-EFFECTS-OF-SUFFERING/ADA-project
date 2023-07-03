@@ -1,10 +1,4 @@
----
-id: thpzzff6kb81s06vls2cv03
-title: 2-Project
-desc: ''
-updated: 1687479473099
-created: 1686427286181
----
+# Proyecto ADA I
 
 ## Enunciado
 
@@ -63,13 +57,3 @@ Los parámetros de entrada del algoritmo a desarrollar son $n$ (animales con su 
 - En la apertura están todas las escenas que estarán en las partes después de la apertura.
 
 	> Es decir, las escenas que están en las $m − 1$ partes seguidas a la apertura sucedieron en la apertura.
-
-## Entrega
-
-Plantear soluciones para el problema en las siguientes complejidades:
-
-- $O(n^2)$.
-
-- $O(n\log n)$.
-
-- $O(n)$.

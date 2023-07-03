@@ -3,7 +3,7 @@ import random
 
 class Animal:
 	"""
-	Class used to represent an Animal in the show
+	Class used to represent an Animal in the show.
 
 
 	Attributes
@@ -17,24 +17,24 @@ class Animal:
 
 	"""
 
-	POSSIBLE_ANIMALS: list[str] = ["Dog", "Cat", "Tapir", "Otter", "Centipede", "Dragonfly", "Capybara", "Parrot",  "Alligator",
-								   "Boa", "Crocodile", "Zebra", "Black panther", "Tiger", "Lion", "Elephant", "Giraffe", "Hippopotamus", "Rhinoceros",
-								   "Turtle", "Lizard", "Bear", "Koala", "Penguin", "Camel", "Sheep", "Pig", "Eagle", "Owl", "Duck", "Goose", "Swan",
-								   "Flamingo", "Pigeon", "Raven", "Jellyfish", "Octopus", "Shark", "Whale", "Dolphin", "Seal", "Starfish", "Butterfly",
-								   "Ant", "Bee", "Spider", "Puma", "Wolf", "Fox", "Horse", "Rabbit", "Turkey", "Panda", "Kangaroo", "Squirrel", "Deer",
-								   "Salmon", "Bat", "Lynx", "Mouse", "Chimpanzee", "Gorilla", "Monkey", "Cheetah", "Condor", "Crab", "Lobster", "Scorpion",
-								   "Ostrich", "Sloth", "Frog", "Hamster", "Iguana", "Chameleon", "Caterpillar", "Ladybug", "Jaguar", "Dove", "Goat",
-								   "Cow", "Chicken", "Goldfish", "Seahorse", "Piranha", "Squid", "Gazelle", "Hyeana", "Racoon", "Beetle", "Worm", "Donkey",
-								   "Grasshopper", "Mantis", "Fly", "Beaver", "Mole", "Moth", "Termite", "Cicada", "Armadillo", "Buffalo", "Bull", "Coyote"]
+	POSSIBLE_ANIMALS_NAMES: list[str] = ["Dog", "Cat", "Tapir", "Otter", "Centipede", "Dragonfly", "Capybara", "Parrot",  "Alligator",
+										"Boa", "Crocodile", "Zebra", "Black panther", "Tiger", "Lion", "Elephant", "Giraffe", "Hippopotamus", "Rhinoceros",
+										"Turtle", "Lizard", "Bear", "Koala", "Penguin", "Camel", "Sheep", "Pig", "Eagle", "Owl", "Duck", "Goose", "Swan",
+										"Flamingo", "Pigeon", "Raven", "Jellyfish", "Octopus", "Shark", "Whale", "Dolphin", "Seal", "Starfish", "Butterfly",
+										"Ant", "Bee", "Spider", "Puma", "Wolf", "Fox", "Horse", "Rabbit", "Turkey", "Panda", "Kangaroo", "Squirrel", "Deer",
+										"Salmon", "Bat", "Lynx", "Mouse", "Chimpanzee", "Gorilla", "Monkey", "Cheetah", "Condor", "Crab", "Lobster", "Scorpion",
+										"Ostrich", "Sloth", "Frog", "Hamster", "Iguana", "Chameleon", "Caterpillar", "Ladybug", "Jaguar", "Dove", "Goat",
+										"Cow", "Chicken", "Goldfish", "Seahorse", "Piranha", "Squid", "Gazelle", "Hyeana", "Racoon", "Beetle", "Worm", "Donkey",
+										"Grasshopper", "Mantis", "Fly", "Beaver", "Mole", "Moth", "Termite", "Cicada", "Armadillo", "Buffalo", "Bull", "Coyote"]
 
 	def __init__(self, name: str, greatness: int):
 		"""
 		Parameters
 		----------
 		name : str
-			The name of the animal
+			The name of the animal.
 		greatness : int
-			The greatness associated with an animal
+			The greatness associated with an animal.
 		"""
 
 		self.name = name
@@ -67,24 +67,24 @@ class Animal:
 
 	@staticmethod
 	def generate_random_animals(n: int) -> list['Animal']:
-		""" Generate a list of n random different animals
+		""" Generate a list of n random different animals.
 
 		Parameters
 		----------
 		n : int
-			The number of animals to generate
+			The number of animals to generate.
 
 		Returns
 		-------
 		list
-			list of n random non-repeated animals already sorted in ascending order by greatness
+			list of n random non-repeated animals already sorted in ascending order by greatness.
 		"""
 
-		animals: list['Animal'] = []
+		animals: list[Animal] = []
 		i = 1
 
 		while len(animals) < n:
-			animal = Animal(random.choice(Animal.POSSIBLE_ANIMALS), i)
+			animal = Animal(random.choice(Animal.POSSIBLE_ANIMALS_NAMES), i)
 
 			if animal.name not in [element.name for element in animals]:
 				animals.append(animal)
