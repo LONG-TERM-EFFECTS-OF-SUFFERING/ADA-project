@@ -6,7 +6,7 @@ class Act:
 	"""
 	Class used to represent an act in the show.
 
-	- An act is a set of k different scenes.
+	- An act is a set of k different scenes, except the first act called the opening act which has (m - 1) * k scenes.
 
 	Atributes
 	---------
