@@ -7,16 +7,21 @@ def main():
 	k: int = 2
 
 	animals: set[Animal] = Animal.generate_random_animals(n)
-	print(Animal.display_list(animals))
+	# print(Animal.display_list(animals))
 
 	# scene: Scene = Scene.generate_random_scene(animals)
 	# print(scene)
-	#
-	# opening: Act = Act.generate_opening_act(3, 2, animals)
-	# print(opening)
+	# scene.sort_scene()
+	# print(scene)
+	
+	opening: Act = Act.generate_opening_act(3, 2, animals)
+	print(opening)
+	opening.merge_sort_act()
+	print(opening)
 
-	show: Show = Show.generate_random_show(m, k, animals)
-	print(show)
+	# show: Show = Show.generate_random_show(m, k, animals)
+	# print(show)
+
 
 if __name__ == "__main__":
 	main()
