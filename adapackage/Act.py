@@ -12,10 +12,13 @@ class Act:
 	---------
 	scenes : set
 		The set of different scenes in the act.
+
 	merge_sorted_scenes : list
 		The list of scenes in the act order by greatness using merge sort as the sorting algorithm.
+
 	counting_sorted_scenes : list
 		The list of scenes in the act order by greatness using counting sort as the sorting algorithm.
+
 	gratness : int
 		The greatness associated with the act (sum of greatness of all scenes).
 
@@ -28,7 +31,7 @@ class Act:
 		"""
 		Constructor for an act.
 		Uses a set as the unsorted data structure for the scenes.
-		Uses a list as the sorted data structure for the scenes.
+		Uses lists as the sorted data structure for the scenes.
 
 		Parameters
 		----------
@@ -137,7 +140,7 @@ class Act:
 
 		return Act(act)
 	
-	def merge_sort_act(self):
+	def merge_sort_act(self) -> None:
 		from adapackage.Algorithms import Algorithms
 		"""
 		Sorts the scenes in the act using merge sort.

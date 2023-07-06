@@ -8,12 +8,18 @@ class Show:
 	"""
 	Class used to represent a show in the zoo.
 
-	- A show is a set of m different acts.
+	- A show is a group of m different acts.
 
 	Atributes
 	---------
 	acts : set
 		The set of different acts in the show.
+
+	merge_sorted_acts : list
+		The list of acts in the show ordered by greatness using merge sort as the sorting algorithm.
+
+	counting_sorted_acts : list
+		The list of acts in the show ordered by greatness using counting sort as the sorting algorithm.
 
 	Methods
 	-------
@@ -22,15 +28,31 @@ class Show:
 
 	def __init__(self, acts: list[Act]):
 		"""
+		Constructor for a show.
+		Uses a set as the unsorted data structure for the acts.
+		Uses lists as the sorted data structure for the acts.
+
 		Parameters
 		----------
 		acts : set
 			The set of different acts in the show.
 		"""
-		self.acts = acts
+		self.acts: set[Act] = acts
+		self.merge_sorted_acts: list[Act] = None
+		self.counting_sorted_acts: list[Act] = None
 
 	def __str__(self):
-		return "{\n" + "\n".join(str(act) for act in self.acts) + "\n}"
+		# When acts have not been sorted yet
+		if self.merge_sorted_acts is None and self.counting_sorted_acts is None:
+			return "{ \n" + "\n".join(str(act) for act in self.acts) + "\n }"
+		
+		# When acts were sorted using merge sort
+		elif self.merge_sorted_acts is not None:
+			return "[ \n" + "\n".join(str(act) for act in self.merge_sorted_acts) + "\n ]"
+		
+		# When acts were sorted using counting sort
+		else:
+			return "[ \n" + "\n".join(str(act) for act in self.counting_sorted_acts) + "\n ]"
 
 	@staticmethod
 	def generate_random_show(m: int, k: int, animals: list[Animal]) -> 'Show':
@@ -70,3 +92,12 @@ class Show:
 			acts.add(Act(scenes))
 
 		return Show(acts)
+	
+	def merge_sort_show(self) -> None:
+		"""
+		Sort the acts in the show using merge sort.
+
+		"""
+
+	
+

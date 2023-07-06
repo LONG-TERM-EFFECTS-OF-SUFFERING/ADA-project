@@ -14,8 +14,10 @@ class Scene:
 	---------
 	animals : set
 		The set of animals in the scene.
+
 	sorted_animals : list
 		The list of animals in the scene ordered by greatness.
+		
 	gratness : int
 		The greatness associated with the scene (sum of greatness of all animals).
 
