@@ -90,8 +90,13 @@ class Scene:
 
 			# Reverse the list of animals to make pairs in descending order of greatness
 			for this_animal, other_animal in Methods.zip(Methods.reverse(self.sorted_animals), Methods.reverse(other_scene.sorted_animals)):
-				return this_animal < other_animal
-
+				
+				if this_animal != other_animal and this_animal < other_animal:
+					return True
+				
+				elif this_animal != other_animal and this_animal > other_animal:
+					return False
+				
 		else:
 			return self.greatness < other_scene.greatness
 
@@ -111,9 +116,15 @@ class Scene:
 		"""
 		# If both scenes have the same greatness then check for the tiebreaker
 		if self.greatness == other_scene.greatness:
+
 			# Reverse the list of animals to make pairs in descending order of greatness
 			for this_animal, other_animal in Methods.zip(Methods.reverse(self.sorted_animals), Methods.reverse(other_scene.sorted_animals)):
-				return this_animal > other_animal
+				if this_animal != other_animal and this_animal > other_animal:
+					return True
+				
+				elif this_animal != other_animal and this_animal < other_animal:
+					return False
+
 		else:
 			return self.greatness > other_scene.greatness
 

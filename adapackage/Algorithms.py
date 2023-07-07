@@ -1,8 +1,3 @@
-from adapackage.Animal import Animal
-from adapackage.Scene import Scene
-from adapackage.Act import Act
-
-
 class Algorithms:
 	"""
 	This class encapsulates the algorithms used for sorting.
@@ -125,7 +120,7 @@ class Algorithms:
 			Algorithms.merge(list_to_be_sorted, left, middle, right)     # O(n)
 
 	@staticmethod
-	def counting_sort(list_to_be_sorted: list[Scene], k: int) -> None:
+	def counting_sort(list_to_be_sorted: list, k: int) -> None:
 		""" Sort a list in ascending order using the counting sort algorithm.
 
 		- Its complexity is O(n).

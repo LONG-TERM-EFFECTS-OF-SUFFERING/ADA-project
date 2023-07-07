@@ -118,7 +118,7 @@ class Show:
 
 	def problem_solver(self):
 		"""
-		
+		Still to be implemented.....
 		"""
 		self.merge_sort_show()
 
@@ -131,7 +131,7 @@ class Show:
 			print("Act " + str(i + 1) + ": ")
 			print(self.merge_sorted_acts[i])
 
-		print("Animals that acted in the most scenes: ")
+		print("Animals that acted in the most scenes: " )
 
 		print("Animals that acted in the least scenes: ")
 

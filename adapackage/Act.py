@@ -41,7 +41,7 @@ class Act:
 		self.scenes: set[Scene] = scenes
 		self.merge_sorted_scenes: list[Scene] = None
 		self.counting_sorted_scenes: list[Scene] = None
-		self.greatness: int = sum(scene.greatness for scene in scenes)
+		self.greatness: int = Methods.sum([scene.greatness for scene in scenes])
 
 	def __str__(self):
 		# When scenes have not been sorted yet
@@ -110,8 +110,7 @@ class Act:
 		if self.greatness == other_act.greatness:
 
 			# Reverse the list of scenes to make pairs in descending order of greatness
-			for this_scene, other_scene in zip(reversed(self.merge_sorted_scenes), reversed(other_act.merge_sorted_scenes)):
-
+			for this_scene, other_scene in Methods.zip(Methods.reverse(self.merge_sorted_scenes), Methods.reversed(other_act.merge_sorted_scenes)):
 				if this_scene != other_scene and this_scene < other_scene:
 					return True
 				
