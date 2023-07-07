@@ -1,46 +1,63 @@
-from adapackage import Show
+from adapackage import Show, Animal, Scene, Act
 
 def test1() -> bool:
 	n = 6
 	m = 3
 	k = 2
 
-	animals = ["gato", "libelula", "ciempies", "nutria", "perro", "tapir"]
+	animals = [
+		Animal("Gato", 3),
+		Animal("Libelula", 2),
+		Animal("Ciempies", 1),
+		Animal("Nutria", 6),
+		Animal("Perro", 4),
+		Animal("Tapir", 5)
+	]
 
-	greatness = [3, 2, 1, 6, 4, 5]
 
-	opening_act_input = [["tapir", "nutria", "perro"], ["tapir", "perro" "gato"], ["ciempies", "tapir", "gato"], ["gato", "ciempies", "libelula"]]
+	opening_act_input = [
+		Scene({animals[5], animals[3], animals[4]}), # "Tapir", "Nutria", "Perro"
+		Scene({animals[5], animals[4], animals[0]}), # "Tapir", "Perro", "Gato"
+		Scene({animals[2], animals[5], animals[0]}), # "Ciempies", "Tapir", "Gato"
+		Scene({animals[0], animals[2], animals[1]})  # "Gato", "Ciempies", "Libelula"
+	]
 
 	acts_input = [
-		[["tapir", "nutria", "perro"], ["ciempies", "tapir", "gato"]],
-		[["gato", "ciempies", "libelula"], ["tapir", "perro" "gato"]]
+		[
+			opening_act_input[0], # "Tapir", "Nutria", "Perro"
+			opening_act_input[2]  # "Ciempies", "Tapir", "Gato"
+		],
+		[
+			opening_act_input[3], # "Gato", "Ciempies", "Libelula"
+			opening_act_input[1]  # "Tapir", "Perro", "Gato"
+		]
 	]
 
 	show = Show(n, m, k, animals, greatness, opening_act_input, acts_input)
 
 	opening_act = [
-		["ciempies", "libelula", "gato"],
-		["ciempies", "gato", "tapir"],
-		["gato", "perro", "tapir"],
-		["perro", "tapir", "nutria"]
+		[animals[2], animals[1], animals[0]], # "Ciempies", "Libelula", "Gato"
+		[animals[2], animals[0], animals[5]], # "Ciempies", "Gato", "Tapir"
+		[animals[0], animals[4], animals[5]], # "Gato", "Perro", "Tapir"
+		[animals[4], animals[5], animals[3]]  # "Perro", "Tapir", "Nutria"
 	]
 
 	acts = [
 		[
-			["ciempies", "libelula", "gato"],
-			["gato", "perro", "tapir"]
+			[animals[2], animals[1], animals[0]], # "Ciempies", "Libelula", "Gato"
+			[animals[0], animals[4], animals[5]]   # "Gato", "Perro", "Tapir"
 		],
 		[
-			["ciempies", "gato", "tapir"],
-			["perro", "tapir", "nutria"]
+			[animals[2], animals[0], animals[5]], # "Ciempies", "Gato", "Tapir"
+			[animals[4], animals[5], animals[3]] # "Perro", "Tapir", "Nutria"
 		]
 	]
 
-	most_participating_animals = ["gato", "tapir"]
-	less_participating_animals = ["libelula"]
+	most_participating_animals = [animals[0], animals[5]] # "Gato", "Tapir"
+	less_participating_animals = [animals[1]] # "Libelula"
 
-	greatness_min_scene = ["ciempies", "libelula", "gato"]
-	greatness_max_scene = ["perro", "tapir", "gato"]
+	greatness_min_scene = [animals[2], animals[1], animals[0]] # "Ciempies", "Libelula", "Gato"
+	greatness_max_scene = [animals[4], animals[5], animals[0]] # "Perro", "Tapir", "Gato"
 
 	greatness_average = 10.5
 

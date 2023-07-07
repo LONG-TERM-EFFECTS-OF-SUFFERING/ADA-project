@@ -7,7 +7,6 @@ class Animal:
 
 	- An animal is a pair (name, greatness).
 
-
 	Attributes
 	----------
 

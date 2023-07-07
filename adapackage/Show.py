@@ -10,7 +10,7 @@ class Show:
 
 	- A show is a group of m different acts.
 
-	Atributes
+	Attributes
 	---------
 	acts : set
 		The set of different acts in the show.
@@ -29,8 +29,8 @@ class Show:
 	def __init__(self, acts: list[Act]):
 		"""
 		Constructor for a show.
-		Uses a set as the unsorted data structure for the acts.
-		Uses lists as the sorted data structure for the acts.
+		- Uses a set as the unsorted data structure for the acts.
+		- Uses lists as the sorted data structure for the acts.
 
 		Parameters
 		----------
@@ -98,6 +98,4 @@ class Show:
 		Sort the acts in the show using merge sort.
 
 		"""
-
-
 

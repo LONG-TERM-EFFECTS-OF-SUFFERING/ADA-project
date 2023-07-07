@@ -1,6 +1,6 @@
 from adapackage.Animal import Animal
+from adapackage.Algorithms import Methods
 import random
-import sys
 
 
 class Scene:
@@ -10,7 +10,7 @@ class Scene:
 	- A scene is a group of 3 different animals.
 
 
-	Atributes
+	Attributes
 	---------
 	animals : set
 		The set of animals in the scene.
@@ -18,7 +18,7 @@ class Scene:
 	sorted_animals : list
 		The list of animals in the scene ordered by greatness.
 
-	gratness : int
+	greatness : int
 		The greatness associated with the scene (sum of greatness of all animals).
 
 	Methods
@@ -29,8 +29,8 @@ class Scene:
 	def __init__(self, animals: set[Animal]):
 		"""
 		Constructor for a scene.
-		Uses a set as the unsorted data structure for the animals.
-		Uses a list as the sorted data structure for the animals.
+		- Uses a set as the unsorted data structure for the animals.
+		- Uses a list as the sorted data structure for the animals.
 
 		Parameters
 		----------
@@ -39,7 +39,8 @@ class Scene:
 		"""
 		self.animals: set[Animal] = animals
 		self.sorted_animals: list[Animal] = None
-		self.greatness: int = sum(animal.gretness for animal in animals)
+		self.sort_scene()
+		self.greatness: int = Methods.sum([animal.gretness for animal in animals])
 
 	def __str__(self):
 		string: str = ""
@@ -81,19 +82,14 @@ class Scene:
 
 		Returns
 		-------
-		The result of the comparison of the first different pair of animals.
+		The result of the comparison of the first different pair of animals
 		"""
-		# If both scenes have the same greatness then check for the tiebreaker.
+		# If both scenes have the same greatness, then check for the tiebreaker
 		if self.greatness == other_scene.greatness:
 
 			# Reverse the list of animals to make pairs in descending order of greatness
-			for this_animal, other_animal in zip(reversed(self.sorted_animals), reversed(other_scene.sorted_animals)):
-
-				if this_animal != other_animal and this_animal < other_animal:
-					return True
-
-				elif this_animal != other_animal and this_animal > other_animal:
-					return False
+			for this_animal, other_animal in Methods.zip(Methods.reverse(self.sorted_animals), Methods.reverse(other_scene.sorted_animals)):
+				return this_animal < other_animal
 
 		else:
 			return self.greatness < other_scene.greatness
@@ -111,18 +107,11 @@ class Scene:
 		-------
 		The result of the comparison of the first different pair of animals.
 		"""
-		# If both scenes have the same greatness then check for the tiebreaker.
+		# If both scenes have the same greatness then check for the tiebreaker
 		if self.greatness == other_scene.greatness:
-
-			# Reverse the list of animals to make pairs in descending order of greatness.
-			for this_animal, other_animal in zip(reversed(self.sorted_animals), reversed(other_scene.sorted_animals)):
-
-				if this_animal != other_animal and this_animal > other_animal:
-					return True
-
-				elif this_animal != other_animal and this_animal < other_animal:
-					return False
-
+			# Reverse the list of animals to make pairs in descending order of greatness
+			for this_animal, other_animal in Methods.zip(Methods.reverse(self.sorted_animals), Methods.reverse(other_scene.sorted_animals)):
+				return this_animal > other_animal
 		else:
 			return self.greatness > other_scene.greatness
 
@@ -200,4 +189,3 @@ class Scene:
 
 		else:
 			self.sorted_animals = [animal3, animal2, animal1]
-

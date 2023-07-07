@@ -134,31 +134,29 @@ class Algorithms:
 			The list to be sorted.
 
 		k : int
-			The max greatness in the list list_to_be_sorted of scenes.
+			The max greatness in the list "list_to_be_sorted" of scenes.
 
 		Returns
 		-------
 		sorted_list : list
-			The list_to_be_sorted sorted in ascending order.
+			The "list_to_be_sorted" sorted in ascending order.
 		"""
 		sorted_list_length: int = Methods.len(list_to_be_sorted)
-		sorted_list = [None for _ in Methods.range(0, sorted_list_length, 1)]
+		sorted_list: list = [None for _ in range(sorted_list_length)]
 
 		# Initialize C with zeros
-		relative_frecuency = [0 for _ in Methods.range(0, k + 1, 1)]
+		relative_frecuency: list = [0 for _ in range(k + 1)]
 
 		# Index counting
-		for i in Methods.range(0, sorted_list_length, 1):
+		for i in range(sorted_list_length):
 			relative_frecuency[list_to_be_sorted[i].greatness] += 1
 
 		# Relative frequency
-		for i in Methods.range(1, k + 1, 1):
+		for i in range(1, k + 1):
 			relative_frecuency[i] += relative_frecuency[i - 1]
 
-
-		print(relative_frecuency, sorted_list, sorted_list_length)
 		# Assignation
-		for i in Methods.range(sorted_list_length - 1, -1, -1):
+		for i in range(sorted_list_length):
 			sorted_list[relative_frecuency[list_to_be_sorted[i].greatness] - 1] = list_to_be_sorted[i].greatness
 			relative_frecuency[list_to_be_sorted[i].greatness] -= 1
 
@@ -171,120 +169,108 @@ class Methods:
 
 	Methods
 	-------
-	range(start, stop)
-	len(list)
-	max(list)
-	reverse(list)
-	zip(list_to_be_sorted, left, middle, right)
+	- len(list)
+	- sum(list)
+	- max(list)
+	- reverse(list)
+	- zip(list1, list2)
 	"""
 
-	""" Return the list of integers in the range [start, stop) with a specified step.
-
-	Parameters
-	----------
-	start : int
-		The starting value of the sequence.
-
-	stop : int
-		The end value of the sequence.
-
-	step : int
-		The difference between each integer in the sequence.
-
-	Returns
-	-------
-	list : list
-		The list of integers in the range [start, stop) with a specified step.
-	"""
-	@staticmethod
-	def range(start: int, stop: int, step: int) -> list:
-		list = []
-
-		if step < 0:
-			while start > stop:
-				list.append(start)
-				start += step
-		else:
-			while start < stop:
-				list.append(start)
-				start += step
-
-		return list
-
-	""" Return the length of a list.
-
-	Parameters
-	----------
-	list : list
-		The list whose length is to be returned.
-
-	Returns
-	-------
-	length : int
-		The length of the list.
-	"""
 	@staticmethod
 	def len(list: list) -> int:
+		""" Returns the length of a list.
+
+		Parameters
+		----------
+		list : list
+			The list whose length is to be returned.
+
+		Returns
+		-------
+		length : int
+			The length of the list.
+		"""
 		length = 0
 
 		for _ in list:
 			length += 1
 		return length
 
-	""" Return the maximum value in a list.
-
-	Parameters
-	----------
-	list : list
-		The list whose maximum value is to be returned.
-	Returns
-	-------
-	max : int
-		The maximum value in the list.
-	"""
 	@staticmethod
-	def max(list: list) -> int:
-		max = list[0]
+	def sum(numbers : list) -> 'number':
+		""" Returns the sum of the elements of a list.
+
+		Parameters
+		----------
+		numbers : list
+			The list whose elements are to be summed.
+
+		Returns
+		-------
+		total : int
+			The sum of the elements of the list.
+		"""
+		total = 0
+
+		for number in numbers:
+			total += number
+		return total
+
+	@staticmethod
+	def max(list: list) -> 'number':
+		""" Returns the maximum value in a list.
+
+		Parameters
+		----------
+		list : list
+			The list whose maximum value is to be returned.
+		Returns
+		-------
+		max : int
+			The maximum value in the list.
+		"""
+		max_element = list[0]
 
 		for i in range(Methods.len(list)):
-			if list[i] > max:
-				max = list[i]
-		return max
+			if list[i] > max_element:
+				max_element = list[i]
+		return max_element
 
-	""" Return the reversed list.
-
-	Parameters
-	----------
-	reversed_list : list
-		The list to be reversed.
-
-	Returns
-	-------
-	reversed_list : list
-		The reversed list.
-	"""
 	@staticmethod
 	def reverse(list: list) -> list:
+		""" Returns the reversed list.
+
+		Parameters
+		----------
+		reversed_list : list
+			The list to be reversed.
+
+		Returns
+		-------
+		reversed_list : list
+			The reversed list.
+		"""
 		reversed_list = []
 
-		for i in Methods.range(Methods.len(list) - 1, -1, -1):
+		for i in range(Methods.len(list) - 1, 0, -1):
 			reversed_list.append(list[i])
 		return reversed_list
 
-	""" Return the list of tuples, where each tuple contains the i-th element from each of the argument sequences.
 
-	Parameters
-	----------
-	list1 : list
-		The list to be "zipped" with list2.
-
-	list2 : list
-		The list to be "zipped" with list1.
-	Returns
-	-------
-	 : list
-		The list of tuples, where each tuple contains the i-th element from each of the argument sequences.
-	"""
 	@staticmethod
 	def zip(list1, list2) -> list:
-		return [(list1[i], list2[i]) for i in Methods.range(0, Methods.len(list1), 1)]
+		""" Returns the list of tuples, where each tuple contains the i-th element from each of the argument sequences.
+
+		Parameters
+		----------
+		list1 : list
+			The list to be "zipped" with list2.
+
+		list2 : list
+			The list to be "zipped" with list1.
+		Returns
+		-------
+		: list
+			The list of tuples, where each tuple contains the i-th element from each of the argument sequences.
+		"""
+		return [(list1[i], list2[i]) for i in range(Methods.len(list1))]

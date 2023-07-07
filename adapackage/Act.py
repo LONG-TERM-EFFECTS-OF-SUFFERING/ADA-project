@@ -30,8 +30,8 @@ class Act:
 	def __init__(self, scenes: set[Scene]):
 		"""
 		Constructor for an act.
-		Uses a set as the unsorted data structure for the scenes.
-		Uses lists as the sorted data structure for the scenes.
+		- Uses a set as the unsorted data structure for the scenes.
+		- Uses lists as the sorted data structure for the scenes.
 
 		Parameters
 		----------
@@ -106,8 +106,7 @@ class Act:
 
 	@staticmethod
 	def generate_opening_act(m: int, k: int, animals: list[Animal]) -> 'Act':
-		"""
-		Generate the opening act of the show.
+		"""Generate the opening act of the show.
 
 		- The opening act has (m - 1) * k different scenes.
 
@@ -164,8 +163,8 @@ class Act:
 		First, each of the k scenes in the act sorts its own animals.
 		The process of sorting animals in a scene takes O(1) and there are k scenes, so the total cost of this part is O(k).
 
-		Then, the k scenes of the act are sorted using merge sort.
-		The merge sort algorithms follows a divide and conquer technique, so the total cost of this part is O(k * log(k)).
+		Then, the k scenes of the act are sorted using counting sort.
+		The total cost of this part is O(k).
 		"""
 
 		for scene in self.scenes: scene.sort_scene() # O(k)
