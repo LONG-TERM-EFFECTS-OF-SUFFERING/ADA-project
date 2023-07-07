@@ -96,13 +96,59 @@ class Act:
 		return self.greatness < other_act.greatness
 
 	def __le__(self, other_act):
-		return self.greatness <= other_act.greatness
+		"""
+		If both acts have the same greatness,
+		then make pairs of acts based on the sorted list of scenes in descending order
+		and look for the first pair of scenes that are different.
+
+		Returns
+		-------
+		bool
+			The result of the comparison between the first pair of scenes that are different.
+		"""
+		# If both acts have the same greatness then check for the tiebreaker
+		if self.greatness == other_act.greatness:
+
+			# Reverse the list of scenes to make pairs in descending order of greatness
+			for this_scene, other_scene in zip(reversed(self.merge_sorted_scenes), reversed(other_act.merge_sorted_scenes)):
+
+				if this_scene != other_scene and this_scene < other_scene:
+					return True
+				
+				elif this_scene != other_scene and this_scene > other_scene:
+					return False
+		
+		else:
+			return self.greatness < other_act.greatness
 
 	def __gt__(self, other_act):
 		return self.greatness > other_act.greatness
 
 	def __ge__(self, other_act):
-		return self.greatness >= other_act.greatness
+		"""
+		If both acts have the same greatness,
+		then make pairs of acts based on the sorted list of scenes in descending order
+		and look for the first pair of scenes that are different.
+
+		Returns
+		-------
+		bool
+			The result of the comparison between the first pair of scenes that are different.
+		"""
+		# If both acts have the same greatness then check for the tiebreaker
+		if self.greatness == other_act.greatness:
+
+			# Reverse the list of scenes to make pairs in descending order of greatness
+			for this_scene, other_scene in zip(reversed(self.merge_sorted_scenes), reversed(other_act.merge_sorted_scenes)):
+
+				if this_scene != other_scene and this_scene > other_scene:
+					return True
+				
+				elif this_scene != other_scene and this_scene < other_scene:
+					return False
+		
+		else:
+			return self.greatness > other_act.greatness
 
 	@staticmethod
 	def generate_opening_act(m: int, k: int, animals: list[Animal]) -> 'Act':
@@ -149,13 +195,14 @@ class Act:
 		The process of sorting animals in a scene takes O(1) and there are k scenes, so the total cost of this part is O(k).
 
 		Then, the k scenes of the act are sorted using merge sort.
-		The merge sort algorithms follows a divide and conquer technique, so the total cost of this part is O(k * log(k)).
+		The merge sort algorithm follows a divide and conquer technique, so the time complexity of this part is O(k * log(k)).
 		"""
-		for scene in self.scenes: scene.sort_scene() # O(k)
+		for scene in self.scenes:
+			scene.sort_scene() # Sort the animals in each scene O(k)
 
 		self.merge_sorted_scenes = list(self.scenes)
 
 		left: int = 0
 		right: int = len(self.merge_sorted_scenes) - 1
 
-		return Algorithms.merge_sort(self.merge_sorted_scenes, left, right) # O(k * log(k))
+		Algorithms.merge_sort(self.merge_sorted_scenes, left, right) # O(k * log(k))

@@ -1,7 +1,6 @@
 from adapackage.Animal import Animal
 from adapackage.Scene import Scene
 from adapackage.Act import Act
-import sys
 
 
 class Algorithms:

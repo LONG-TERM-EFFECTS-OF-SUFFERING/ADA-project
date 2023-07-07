@@ -1,6 +1,5 @@
 from adapackage.Animal import Animal
 import random
-import sys
 
 
 class Scene:
@@ -77,11 +76,12 @@ class Scene:
 		""""
 		If both scenes have the same greatness,
 		then make pairs of animals based on the sorted list of animals in descending order
-		and look for the first pair that is different.
+		and look for the first pair of animals that is different.
 
 		Returns
 		-------
-		The result of the comparison of the first different pair of animals.
+		bool
+			The result of the comparison of the first different pair of animals.
 		"""
 		# If both scenes have the same greatness then check for the tiebreaker.
 		if self.greatness == other_scene.greatness: 
@@ -109,7 +109,8 @@ class Scene:
 
 		Returns
 		-------
-		The result of the comparison of the first different pair of animals.
+		bool
+			The result of the comparison of the first different pair of animals.
 		"""
 		# If both scenes have the same greatness then check for the tiebreaker.
 		if self.greatness == other_scene.greatness:

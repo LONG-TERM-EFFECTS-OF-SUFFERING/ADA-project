@@ -1,6 +1,7 @@
 from adapackage.Animal import Animal
 from adapackage.Scene import Scene
 from adapackage.Act import Act
+from adapackage.Algorithms import Algorithms
 import random
 
 
@@ -40,6 +41,7 @@ class Show:
 		self.acts: set[Act] = acts
 		self.merge_sorted_acts: list[Act] = None
 		self.counting_sorted_acts: list[Act] = None
+		self.m = len(acts)
 
 	def __str__(self):
 		# When acts have not been sorted yet
@@ -77,7 +79,7 @@ class Show:
 			The randomly generated show for the given values of m, k and animals.
 		"""
 		opening_act: Act = Act.generate_opening_act(m, k, animals)
-		copy_of_scenes_in_opening_act: list[Scene] = list(opening_act.scenes.copy())
+		copy_of_scenes_in_opening_act: list[Scene] = list(opening_act.scenes)
 
 		acts: set[Act] = {opening_act}
 
@@ -97,7 +99,46 @@ class Show:
 		"""
 		Sort the acts in the show using merge sort.
 
+		First, each of the m acts in the show sorts its own scenes using merge sort.
+		The process of sorting scenes in an act takes O(k * log(k)), and there are m acts, so the total time is O(m * k * log(k)).
+
+		Then, the m acts are sorted using merge sort.
+		The merge sort algorithm follows a divide and conquer technique, so the time complexity of this part is O(m * log(m)).
 		"""
 
-	
+		for act in self.acts:
+			act.merge_sort_act() # Sort the scenes in each act using merge sort O(m * k * log(k))
+		
+		self.merge_sorted_acts = list(self.acts)
+
+		left: int = 0
+		right: int = len(self.merge_sorted_acts) - 1
+
+		Algorithms.merge_sort(self.merge_sorted_acts, left, right) # Sort the acts using merge sort O(m * log(m))
+
+	def problem_solver(self):
+		"""
+		
+		"""
+		self.merge_sort_show()
+
+		print("The order of the show should be: ")
+
+		print("Opening act: ")
+		print(self.merge_sorted_acts[self.m - 1])
+
+		for i in range(0, self.m - 1):
+			print("Act " + str(i + 1) + ": ")
+			print(self.merge_sorted_acts[i])
+
+		print("Animals that acted in the most scenes: ")
+
+		print("Animals that acted in the least scenes: ")
+
+		print("Scene with the smallest greatness: ") 
+		
+		print("Scene with the largest greatness: ")
+
+		print("The average greatness of the show is: ")
+
 
