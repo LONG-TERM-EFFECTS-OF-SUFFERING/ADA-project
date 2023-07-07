@@ -7,7 +7,6 @@ class Animal:
 
 	- An animal is a pair (name, greatness).
 
-
 	Attributes
 	----------
 
@@ -49,7 +48,7 @@ class Animal:
 
 	def __eq__(self, other_animal: 'Animal'):
 		return self.gretness == other_animal.gretness
-	
+
 	def __ne__(self, other_animal: 'Animal'):
 		return self.gretness != other_animal.gretness
 
@@ -70,8 +69,7 @@ class Animal:
 
 	@staticmethod
 	def generate_random_animals(n: int) -> list['Animal']:
-		"""
-		Generate a list of n random different animals.
+		""" Generate a list of n random different animals.
 
 		Parameters
 		----------
@@ -80,13 +78,13 @@ class Animal:
 
 		Returns
 		-------
-		list
+		animals : list
 			list of n random non-repeated animals already sorted in ascending order by greatness.
 		"""
 
 		animals: list[Animal] = []
 		i = 1
-		
+
 		if n <= len(Animal.POSSIBLE_ANIMALS_NAMES):
 			while len(animals) < n:
 				animal = Animal(random.choice(Animal.POSSIBLE_ANIMALS_NAMES), i)
@@ -94,7 +92,7 @@ class Animal:
 				if animal.name not in [element.name for element in animals]:
 					animals.append(animal)
 					i += 1
-		
+
 		else:
 			while len(animals) < n:
 				animal: Animal = Animal("Animal" + str(i), i)

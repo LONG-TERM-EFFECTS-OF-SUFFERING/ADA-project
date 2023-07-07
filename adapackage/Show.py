@@ -11,7 +11,7 @@ class Show:
 
 	- A show is a group of m different acts.
 
-	Atributes
+	Attributes
 	---------
 	acts : set
 		The set of different acts in the show.
@@ -30,8 +30,8 @@ class Show:
 	def __init__(self, acts: list[Act]):
 		"""
 		Constructor for a show.
-		Uses a set as the unsorted data structure for the acts.
-		Uses lists as the sorted data structure for the acts.
+		- Uses a set as the unsorted data structure for the acts.
+		- Uses lists as the sorted data structure for the acts.
 
 		Parameters
 		----------
@@ -47,11 +47,11 @@ class Show:
 		# When acts have not been sorted yet
 		if self.merge_sorted_acts is None and self.counting_sorted_acts is None:
 			return "{ \n" + "\n".join(str(act) for act in self.acts) + "\n }"
-		
+
 		# When acts were sorted using merge sort
-		elif self.merge_sorted_acts is not None:
+		if self.merge_sorted_acts is not None:
 			return "[ \n" + "\n".join(str(act) for act in self.merge_sorted_acts) + "\n ]"
-		
+
 		# When acts were sorted using counting sort
 		else:
 			return "[ \n" + "\n".join(str(act) for act in self.counting_sorted_acts) + "\n ]"
@@ -94,7 +94,7 @@ class Show:
 			acts.add(Act(scenes))
 
 		return Show(acts)
-	
+
 	def merge_sort_show(self) -> None:
 		"""
 		Sort the acts in the show using merge sort.

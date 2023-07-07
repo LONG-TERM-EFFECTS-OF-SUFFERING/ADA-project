@@ -22,7 +22,9 @@ Es decir que en total hay $(m − 1) ∗ 2k$ escenas, sin hacer la distinción e
 
 ## Problema
 
-Los parámetros de entrada del algoritmo a desarrollar son $n$ (animales con su respectiva grandeza), $m$ (número de partes del espectáculo) y $k$.
+Los parámetros de entrada del algoritmo a desarrollar son una lista con los animales, una lista con las grandezas asociadas a los animales, $m$ (número de partes del espectáculo), $k$ (número de escenas en cada una de las $m - 1$ partes restantes), la gran apertura (sus escenas) y las partes del show.
+
+> En ultima instacia un problema de ordenamiento.
 
 ### Restricciones
 

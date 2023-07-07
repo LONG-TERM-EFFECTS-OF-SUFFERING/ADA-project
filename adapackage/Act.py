@@ -1,5 +1,6 @@
 from adapackage.Animal import Animal
 from adapackage.Scene import Scene
+from adapackage.Algorithms import Algorithms, Methods
 
 
 class Act:
@@ -8,7 +9,7 @@ class Act:
 
 	- An act is a group of k different scenes.
 
-	Atributes
+	Attributes
 	---------
 	scenes : set
 		The set of different scenes in the act.
@@ -24,14 +25,13 @@ class Act:
 
 	Methods
 	-------
-
 	"""
 
 	def __init__(self, scenes: set[Scene]):
 		"""
 		Constructor for an act.
-		Uses a set as the unsorted data structure for the scenes.
-		Uses lists as the sorted data structure for the scenes.
+		- Uses a set as the unsorted data structure for the scenes.
+		- Uses lists as the sorted data structure for the scenes.
 
 		Parameters
 		----------
@@ -47,11 +47,11 @@ class Act:
 		# When scenes have not been sorted yet
 		if self.merge_sorted_scenes is None and self.counting_sorted_scenes is None:
 			return self.display_unsorted_scenes()
-		
+
 		# When scenes were sorted using merge sort
 		elif self.merge_sorted_scenes is not None:
 			return self.display_merge_sorted_scenes()
-		
+
 		# When scenes were sorted using counting sort
 		else:
 			return self.display_couting_sorted_scenes()
@@ -63,32 +63,32 @@ class Act:
 			"\n\t\t" + str(self.greatness) +
 			"\n\t }" )
 		return string
-				
+
 	def display_merge_sorted_scenes(self) -> str:
 		string: str = (
 			"\t [ \n\t\t" +
 			"\n\t\t".join(str(scene) for scene in self.merge_sorted_scenes) +
-			"\n\t\t" + str(self.greatness) + 
+			"\n\t\t" + str(self.greatness) +
 			"\n\t ]" )
 		return string
-	
+
 	def display_couting_sorted_scenes(self) -> str:
 		string: str = (
 			"\t [ \n\t\t" +
 			"\n\t\t".join(str(scene) for scene in self.counting_sorted_scenes) +
-			"\n\t\t" + str(self.greatness) + 
+			"\n\t\t" + str(self.greatness) +
 			"\n\t ]" )
 		return string
-	
+
 	def __eq__(self, other_act):
 		return self.scenes == other_act.scenes
-	
+
 	def __ne__(self, other_act):
 		return self.scenes != other_act.scenes
 
 	def __hash__(self):
 		return hash(frozenset(self.scenes))
-	
+
 	def __iter__(self):
 		return iter(self.scenes)
 
@@ -152,8 +152,7 @@ class Act:
 
 	@staticmethod
 	def generate_opening_act(m: int, k: int, animals: list[Animal]) -> 'Act':
-		"""
-		Generate the opening act of the show.
+		"""Generate the opening act of the show.
 
 		- The opening act has (m - 1) * k different scenes.
 
@@ -185,11 +184,9 @@ class Act:
 				act.add(scene)
 
 		return Act(act)
-	
+
 	def merge_sort_act(self) -> None:
-		from adapackage.Algorithms import Algorithms
-		"""
-		Sorts the scenes in the act using merge sort.
+		"""Sorts the scenes in the act using merge sort.
 
 		First, each of the k scenes in the act sorts its own animals.
 		The process of sorting animals in a scene takes O(1) and there are k scenes, so the total cost of this part is O(k).
@@ -206,3 +203,20 @@ class Act:
 		right: int = len(self.merge_sorted_scenes) - 1
 
 		Algorithms.merge_sort(self.merge_sorted_scenes, left, right) # O(k * log(k))
+
+	def counting_sort_act(self) -> None:
+		"""Sorts the scenes in the act using counting sort.
+
+		First, each of the k scenes in the act sorts its own animals.
+		The process of sorting animals in a scene takes O(1) and there are k scenes, so the total cost of this part is O(k).
+
+		Then, the k scenes of the act are sorted using counting sort.
+		The total cost of this part is O(k).
+		"""
+
+		for scene in self.scenes: scene.sort_scene() # O(k)
+
+		scenes = list(self.scenes)
+
+		return Algorithms.counting_sort(scenes, Methods.max(scenes).greatness) # O(k)
+
