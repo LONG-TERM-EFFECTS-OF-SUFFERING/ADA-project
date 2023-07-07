@@ -120,7 +120,7 @@ class Algorithms:
 			Algorithms.merge(list_to_be_sorted, left, middle, right)     # O(n)
 
 	@staticmethod
-	def counting_sort(list_to_be_sorted: list, k: int) -> None:
+	def counting_sort(list_to_be_sorted: list, k: int) -> list:
 		""" Sort a list in ascending order using the counting sort algorithm.
 
 		- Its complexity is O(n).
@@ -154,7 +154,7 @@ class Algorithms:
 
 		# Assignation
 		for i in range(sorted_list_length):
-			sorted_list[relative_frecuency[list_to_be_sorted[i].greatness] - 1] = list_to_be_sorted[i].greatness
+			sorted_list[relative_frecuency[list_to_be_sorted[i].greatness] - 1] = list_to_be_sorted[i]
 			relative_frecuency[list_to_be_sorted[i].greatness] -= 1
 
 		return sorted_list

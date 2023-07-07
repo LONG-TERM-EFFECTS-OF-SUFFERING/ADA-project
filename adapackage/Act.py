@@ -216,6 +216,6 @@ class Act:
 		for scene in self.scenes: scene.sort_scene() # O(k)
 
 		scenes = list(self.scenes)
-
-		return Algorithms.counting_sort(scenes, Methods.max(scenes).greatness) # O(k)
+		
+		self.counting_sorted_scenes = Algorithms.counting_sort(scenes, Methods.max(scenes).greatness) # O(k)
 
