@@ -9,7 +9,7 @@ class Act:
 
 	- An act is a group of k different scenes.
 
-	Atributes
+	Attributes
 	---------
 	scenes : set
 		The set of different scenes in the act.
@@ -25,7 +25,6 @@ class Act:
 
 	Methods
 	-------
-
 	"""
 
 	def __init__(self, scenes: set[Scene]):
