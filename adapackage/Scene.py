@@ -17,7 +17,7 @@ class Scene:
 
 	sorted_animals : list
 		The list of animals in the scene ordered by greatness.
-		
+
 	gratness : int
 		The greatness associated with the scene (sum of greatness of all animals).
 
@@ -40,7 +40,7 @@ class Scene:
 		self.animals: set[Animal] = animals
 		self.sorted_animals: list[Animal] = None
 		self.greatness: int = sum(animal.gretness for animal in animals)
-	
+
 	def __str__(self):
 		string: str = ""
 
@@ -49,18 +49,18 @@ class Scene:
 			string += (
 				"{ " + ", ".join(str(animal) for animal in self.animals) +
 				", " + str(self.greatness) + " }" )
-		
+
 		# When animals were sorted
-		else: 
+		else:
 			string += (
 				"[ " + ", ".join(str(animal) for animal in self.sorted_animals) +
 				", " + str(self.greatness) + " ]" )
-		
+
 		return string
 
 	def __eq__(self, other_scene: 'Scene'):
 		return self.animals == other_scene.animals
-	
+
 	def __ne__(self, other_scene: 'Scene'):
 		return self.animals != other_scene.animals
 
@@ -84,24 +84,24 @@ class Scene:
 		The result of the comparison of the first different pair of animals.
 		"""
 		# If both scenes have the same greatness then check for the tiebreaker.
-		if self.greatness == other_scene.greatness: 
+		if self.greatness == other_scene.greatness:
 
 			# Reverse the list of animals to make pairs in descending order of greatness
 			for this_animal, other_animal in zip(reversed(self.sorted_animals), reversed(other_scene.sorted_animals)):
 
 				if this_animal != other_animal and this_animal < other_animal:
 					return True
-				
+
 				elif this_animal != other_animal and this_animal > other_animal:
 					return False
-		
+
 		else:
 			return self.greatness < other_scene.greatness
 
 	def __gt__(self, other_scene: 'Scene'):
 		return self.greatness > other_scene.greatness
 
-	def __ge__(self, other_scene: 'Scene'):			
+	def __ge__(self, other_scene: 'Scene'):
 		"""
 		If both scenes have the same greatness,
 		then make pairs of animals based on the sorted list of animals in descending order
@@ -119,10 +119,10 @@ class Scene:
 
 				if this_animal != other_animal and this_animal > other_animal:
 					return True
-				
+
 				elif this_animal != other_animal and this_animal < other_animal:
 					return False
-		
+
 		else:
 			return self.greatness > other_scene.greatness
 
@@ -151,7 +151,7 @@ class Scene:
 				scene.add(animal)
 
 		return Scene(scene)
-	
+
 	def sort_scene(self) -> None:
 		"""
 		Updates the list sorted_animals with the animals in the scene sorted in ascending order by greatness.
@@ -165,21 +165,39 @@ class Scene:
 
 		(animal1, animal2, animal3) = self.animals
 
-		if animal1 < animal2 and animal2 < animal3:
+		if (
+			animal1 < animal2 and
+			animal2 < animal3
+		):
 			self.sorted_animals = [animal1, animal2, animal3]
-		
-		elif animal1 < animal2 and animal2 > animal3 and animal1 < animal3:
+
+		elif(
+			animal1 < animal2 and
+			animal2 > animal3 and
+			animal1 < animal3
+		):
 			self.sorted_animals = [animal1, animal3, animal2]
-		
-		elif animal1 < animal2 and animal2 > animal3 and animal1 > animal3:
+
+		elif (
+			animal1 < animal2 and
+			animal2 > animal3 and
+			animal1 > animal3
+		):
 			self.sorted_animals = [animal3, animal1, animal2]
-		
-		elif animal1 > animal2 and animal1 < animal3:
+
+		elif (
+			animal1 > animal2 and
+			animal1 < animal3
+		):
 			self.sorted_animals = [animal2, animal1, animal3]
-		
-		elif animal1 > animal2 and animal1 > animal3 and animal2 < animal3:
+
+		elif (
+			animal1 > animal2 and
+			animal1 > animal3 and
+			animal2 < animal3
+		):
 			self.sorted_animals = [animal2, animal3, animal1]
-		
+
 		else:
 			self.sorted_animals = [animal3, animal2, animal1]
 

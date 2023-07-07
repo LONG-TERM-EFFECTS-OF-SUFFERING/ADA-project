@@ -45,11 +45,11 @@ class Show:
 		# When acts have not been sorted yet
 		if self.merge_sorted_acts is None and self.counting_sorted_acts is None:
 			return "{ \n" + "\n".join(str(act) for act in self.acts) + "\n }"
-		
+
 		# When acts were sorted using merge sort
-		elif self.merge_sorted_acts is not None:
+		if self.merge_sorted_acts is not None:
 			return "[ \n" + "\n".join(str(act) for act in self.merge_sorted_acts) + "\n ]"
-		
+
 		# When acts were sorted using counting sort
 		else:
 			return "[ \n" + "\n".join(str(act) for act in self.counting_sorted_acts) + "\n ]"
@@ -92,12 +92,12 @@ class Show:
 			acts.add(Act(scenes))
 
 		return Show(acts)
-	
+
 	def merge_sort_show(self) -> None:
 		"""
 		Sort the acts in the show using merge sort.
 
 		"""
 
-	
+
 

@@ -13,11 +13,12 @@ def main():
 	# print(scene)
 	# scene.sort_scene()
 	# print(scene)
-	
+
 	opening: Act = Act.generate_opening_act(3, 2, animals)
 	print(opening)
-	opening.merge_sort_act()
-	print(opening)
+	print(opening.counting_sort_act())
+	# opening.merge_sort_act()
+	# print(opening)
 
 	# show: Show = Show.generate_random_show(m, k, animals)
 	# print(show)
