@@ -40,7 +40,7 @@ class Scene:
 		self.animals: set[Animal] = animals
 		self.sorted_animals: list[Animal] = None
 		self.sort_scene()
-		self.greatness: int = Methods.sum([animal.gretness for animal in animals])
+		self.greatness: int = Methods.sum([animal.greatness for animal in animals])
 
 	def __str__(self):
 		string: str = ""
@@ -90,13 +90,13 @@ class Scene:
 
 			# Reverse the list of animals to make pairs in descending order of greatness
 			for this_animal, other_animal in Methods.zip(Methods.reverse(self.sorted_animals), Methods.reverse(other_scene.sorted_animals)):
-				
+
 				if this_animal != other_animal and this_animal < other_animal:
 					return True
-				
+
 				elif this_animal != other_animal and this_animal > other_animal:
 					return False
-				
+
 		else:
 			return self.greatness < other_scene.greatness
 
@@ -121,12 +121,18 @@ class Scene:
 			for this_animal, other_animal in Methods.zip(Methods.reverse(self.sorted_animals), Methods.reverse(other_scene.sorted_animals)):
 				if this_animal != other_animal and this_animal > other_animal:
 					return True
-				
+
 				elif this_animal != other_animal and this_animal < other_animal:
 					return False
 
 		else:
 			return self.greatness > other_scene.greatness
+
+	def transform_to_list(self):
+		[animal1, animal2, animal3] = self.sorted_animals
+
+		#return [int(animal1.greatness), int(animal2.greatness), int(animal3.greatness), int(self.greatness)]
+		return [animal1.greatness, animal2.greatness, animal3.greatness, self.greatness]
 
 	@staticmethod
 	def generate_random_scene(animals: list[Animal]) -> 'Scene':

@@ -7,10 +7,6 @@ def main():
 	k: int = 3
 
 	animals: set[Animal] = Animal.generate_random_animals(n)
-	escena1 = Scene({Animal("A", 4), Animal("B", 5), Animal("C", 5)})
-	escena2 = Scene({Animal("A", 4), Animal("B", 5), Animal("C", 6)})
-	print(escena1 <= escena2)
-	# print(Animal.display_list(animals))
 
 	# scene: Scene = Scene.generate_random_scene(animals)
 	# print(scene)
@@ -19,7 +15,7 @@ def main():
 	
 	#opening: Act = Act.generate_opening_act(3, 2, animals)
 	# print(opening)
-	#opening.merge_sort_act()
+	#opening.counting_sort_act()
 	# print(opening)
 
 	show: Show = Show.generate_random_show(m, k, animals)

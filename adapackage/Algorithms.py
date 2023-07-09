@@ -120,42 +120,48 @@ class Algorithms:
 			Algorithms.merge(list_to_be_sorted, left, middle, right)     # O(n)
 
 	@staticmethod
-	def counting_sort(list_to_be_sorted: list, k: int) -> list:
+	def counting_sort(n: int, list_to_be_sorted: list, criterion: int, k: int, original_list: list):
 		""" Sort a list in ascending order using the counting sort algorithm.
 
 		- Its complexity is O(n).
 
 		Parameters
 		----------
+		n : int
+			The number of elements (length) in the list "list_to_be_sorted".
+
 		list_to_be_sorted : list
 			The list to be sorted.
 
+		criterion : int
+			The index of the element in the "list_to_be_sorted" by which it will be sorted.
+
 		k : int
-			The max greatness in the list "list_to_be_sorted" of scenes.
+			The max greatness in the list "list_to_be_sorted".
+
+		original_list : list
+			The original list (without any tranformation).
 
 		Returns
 		-------
 		sorted_list : list
-			The "list_to_be_sorted" sorted in ascending order.
+			The "list_to_be_sorted" sorted in ascending order just keeping in mind the elements in the criterion index.
 		"""
-		sorted_list_length: int = Methods.len(list_to_be_sorted)
-		sorted_list: list = [None for _ in range(sorted_list_length)]
-
-		# Initialize C with zeros
-		relative_frecuency: list = [0 for _ in range(k + 1)]
+		relative_frecuency = [0] * k
+		sorted_list = [None] * n
 
 		# Index counting
-		for i in range(sorted_list_length):
-			relative_frecuency[list_to_be_sorted[i].greatness] += 1
+		for element in list_to_be_sorted:
+			relative_frecuency[element[0][criterion] - 1] += 1
 
-		# Relative frequency
-		for i in range(1, k + 1):
+		# Relative frecuency
+		for i in range(1, k):
 			relative_frecuency[i] += relative_frecuency[i - 1]
 
-		# Assignation
-		for i in range(sorted_list_length):
-			sorted_list[relative_frecuency[list_to_be_sorted[i].greatness] - 1] = list_to_be_sorted[i]
-			relative_frecuency[list_to_be_sorted[i].greatness] -= 1
+		# Sorting list
+		for i in range(n - 1, -1, -1):
+			sorted_list[relative_frecuency[list_to_be_sorted[i][0][criterion] - 1] - 1] = original_list[list_to_be_sorted[i][1]]
+			relative_frecuency[list_to_be_sorted[i][0][criterion] - 1] -= 1
 
 		return sorted_list
 	
