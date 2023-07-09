@@ -27,7 +27,7 @@ class Show:
 
 	"""
 
-	def __init__(self, acts: list[Act]):
+	def __init__(self, acts: list[Act], animals: list[Animal]):
 		"""
 		Constructor for a show.
 		- Uses a set as the unsorted data structure for the acts.
@@ -39,6 +39,7 @@ class Show:
 			The set of different acts in the show.
 		"""
 		self.acts: set[Act] = acts
+		self.animals: list[Animal] = animals
 		self.merge_sorted_acts: list[Act] = None
 		self.counting_sorted_acts: list[Act] = None
 		self.m = len(acts)
@@ -93,7 +94,7 @@ class Show:
 
 			acts.add(Act(scenes))
 
-		return Show(acts)
+		return Show(acts,animals)
 
 	def merge_sort_show(self) -> None:
 		"""
@@ -115,12 +116,14 @@ class Show:
 		right: int = len(self.merge_sorted_acts) - 1
 
 		Algorithms.merge_sort(self.merge_sorted_acts, left, right) # Sort the acts using merge sort O(m * log(m))
-
+	
 	def problem_solver(self):
 		"""
 		Still to be implemented.....
 		"""
 		self.merge_sort_show()
+
+		participation = Algorithms.participation_per_animal(self.merge_sorted_acts,self.animals)
 
 		print("The order of the show should be: ")
 
@@ -131,14 +134,65 @@ class Show:
 			print("Act " + str(i + 1) + ": ")
 			print(self.merge_sorted_acts[i])
 
-		print("Animals that acted in the most scenes: " )
+		# Participation per animals
+		print(participation)
+		
+		i = 0
+
+		for animal in participation:
+			if i == 0:
+				max_appearances = participation[animal]
+				min_appearances = max_appearances
+				i = 1
+			else:
+				if(participation[animal] > max_appearances):
+					max_appearances = participation[animal]
+
+				elif(participation[animal] < min_appearances):
+					min_appearances = participation[animal]
+
+		print("Animals that acted in the most scenes: ")
+
+		most_participative_animals = []
+
+		for animal in participation:
+			if(participation[animal] == max_appearances):
+				most_participative_animals.append(animal)
+
+		print(most_participative_animals, max_appearances)
 
 		print("Animals that acted in the least scenes: ")
 
-		print("Scene with the smallest greatness: ") 
+		less_participative_animals = []
+
+		for animal in participation:
+			if(participation[animal] == min_appearances):
+				less_participative_animals.append(animal)
+
+		print(less_participative_animals, min_appearances)		
+
+		#Greatness in scenes
+		pos_great_opening = len(self.merge_sorted_acts)-1
+		great_opening = self.merge_sorted_acts[pos_great_opening].merge_sorted_scenes
 		
+		print("Scene with the smallest greatness: ") 
+	
+		less_greatness_scene = great_opening[0]		
+		print(less_greatness_scene)
+
 		print("Scene with the largest greatness: ")
+
+		largest_greatness_scene = great_opening[len(great_opening)-1]
+		print(largest_greatness_scene)
 
 		print("The average greatness of the show is: ")
 
+		total_greatness = 0
+		num_scenes = 0
 
+		for scene in self.merge_sorted_acts[pos_great_opening]:
+			total_greatness += scene.greatness
+			num_scenes += 1
+
+		averague = total_greatness/num_scenes
+		print(averague)

@@ -2,9 +2,9 @@ from adapackage import *
 
 
 def main():
-	n: int = 6
-	m: int = 3
-	k: int = 2
+	n: int = 10
+	m: int = 5
+	k: int = 3
 
 	animals: set[Animal] = Animal.generate_random_animals(n)
 	escena1 = Scene({Animal("A", 4), Animal("B", 5), Animal("C", 5)})
@@ -17,14 +17,14 @@ def main():
 	# scene.sort_scene()
 	# print(scene)
 	
-	opening: Act = Act.generate_opening_act(3, 2, animals)
+	#opening: Act = Act.generate_opening_act(3, 2, animals)
 	# print(opening)
-	opening.counting_sort_act()
+	#opening.merge_sort_act()
 	# print(opening)
 
-	# show: Show = Show.generate_random_show(m, k, animals)
-	# print(show)
-	# show.problem_solver()
+	show: Show = Show.generate_random_show(m, k, animals)
+	print(show)
+	show.problem_solver()
 
 
 if __name__ == "__main__":

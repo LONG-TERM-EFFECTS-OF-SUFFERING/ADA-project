@@ -158,7 +158,23 @@ class Algorithms:
 			relative_frecuency[list_to_be_sorted[i].greatness] -= 1
 
 		return sorted_list
+	
+	@staticmethod
+	def participation_per_animal(sorted_list, animals) -> dict:
+		"""
+		Still to be implemented.....
+		"""
 
+		dictionary = {}
+		for animal in animals:
+			dictionary[animal.name] = 0
+
+		for act in sorted_list:
+			for scene in act:
+				for animal in scene:
+					dictionary[animal.name] += 1
+
+		return dictionary
 
 class Methods:
 	"""
