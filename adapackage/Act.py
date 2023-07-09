@@ -15,12 +15,12 @@ class Act:
 		The set of different scenes in the act.
 
 	merge_sorted_scenes : list
-		The list of scenes in the act order by greatness using merge sort as the sorting algorithm.
+		The list of scenes in the act ordered by greatness using merge sort as the sorting algorithm.
 
 	counting_sorted_scenes : list
-		The list of scenes in the act order by greatness using counting sort as the sorting algorithm.
+		The list of scenes in the act ordered by greatness using counting sort as the sorting algorithm.
 
-	gratness : int
+	greatness : int
 		The greatness associated with the act (sum of greatness of all scenes).
 
 	Methods
@@ -113,10 +113,10 @@ class Act:
 			for this_scene, other_scene in Methods.zip(Methods.reverse(self.merge_sorted_scenes), Methods.reversed(other_act.merge_sorted_scenes)):
 				if this_scene != other_scene and this_scene < other_scene:
 					return True
-				
+
 				elif this_scene != other_scene and this_scene > other_scene:
 					return False
-		
+
 		else:
 			return self.greatness < other_act.greatness
 
@@ -142,10 +142,10 @@ class Act:
 
 				if this_scene != other_scene and this_scene > other_scene:
 					return True
-				
+
 				elif this_scene != other_scene and this_scene < other_scene:
 					return False
-		
+
 		else:
 			return self.greatness > other_act.greatness
 
@@ -214,8 +214,34 @@ class Act:
 		"""
 
 		for scene in self.scenes: scene.sort_scene() # O(k)
-
 		scenes = list(self.scenes)
-		
-		self.counting_sorted_scenes = Algorithms.counting_sort(scenes, Methods.max(scenes).greatness) # O(k)
+
+		scenes_aux = []
+		index = 0
+
+		for animal in scenes:
+			scenes_aux.append([animal.transform_to_list(), index])
+			index += 1
+
+		n = len(scenes)
+		def max_values(scenes_aux, n):
+			max_values = []
+
+			for i in range(4):
+				column_numbers = []
+				for j in range(n):
+					column_numbers.append(scenes_aux[j][0][i])
+				max_values.append(max(column_numbers))
+
+			return max_values
+
+		max_list = max_values(scenes_aux, n)
+
+		sorted_act = None
+
+		for j in range(4):
+			sorted_act = Algorithms.counting_sort(n, scenes_aux, j, max_list[j], scenes)
+			act = sorted_act
+
+		self.counting_sorted_scenes = sorted_act # O(k)
 

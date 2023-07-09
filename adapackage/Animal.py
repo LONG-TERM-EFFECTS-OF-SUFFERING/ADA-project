@@ -41,31 +41,31 @@ class Animal:
 		"""
 
 		self.name = name
-		self.gretness = greatness
+		self.greatness = greatness
 
 	def __str__(self):
-		return f"({self.name} {self.gretness})"
+		return f"({self.name} {self.greatness})"
 
 	def __eq__(self, other_animal: 'Animal'):
-		return self.gretness == other_animal.gretness
+		return self.greatness == other_animal.greatness
 
 	def __ne__(self, other_animal: 'Animal'):
-		return self.gretness != other_animal.gretness
+		return self.greatness != other_animal.greatness
 
 	def __hash__(self):
-		return hash(self.name) + hash(self.gretness)
+		return hash(self.name) + hash(self.greatness)
 
 	def __lt__(self, other_animal: 'Animal'):
-		return self.gretness < other_animal.gretness
+		return self.greatness < other_animal.greatness
 
 	def __le__(self, other_animal: 'Animal'):
-		return self.gretness <= other_animal.gretness
+		return self.greatness <= other_animal.greatness
 
 	def __gt__(self, other_animal: 'Animal'):
-		return self.gretness > other_animal.gretness
+		return self.greatness > other_animal.greatness
 
 	def __ge__(self, other_animal: 'Animal'):
-		return self.gretness >= other_animal.gretness
+		return self.greatness >= other_animal.greatness
 
 	@staticmethod
 	def generate_random_animals(n: int) -> list['Animal']:
