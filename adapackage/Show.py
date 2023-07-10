@@ -47,7 +47,6 @@ class Show:
 	def __str__(self):
 		# When acts have not been sorted yet
 		if self.merge_sorted_acts is None and self.counting_sorted_acts is None:
-			print(True)
 			return "{ \n" + "\n".join(str(act) for act in self.acts) + "\n }"
 
 		# When acts were sorted using merge sort
@@ -116,7 +115,6 @@ class Show:
 		right: int = len(self.merge_sorted_acts) - 1
 
 		Algorithms.merge_sort(self.merge_sorted_acts, left, right) # Sort the acts using merge sort O(m * log(m))
-		print(self.merge_sorted_acts)
 	
 	def counting_sort_show(self, k: int) -> None:
 		"""Sort the acts in the show using couting sort.
