@@ -116,6 +116,7 @@ class Show:
 		right: int = len(self.merge_sorted_acts) - 1
 
 		Algorithms.merge_sort(self.merge_sorted_acts, left, right) # Sort the acts using merge sort O(m * log(m))
+		print(self.merge_sorted_acts)
 	
 	def counting_sort_show(self, k: int) -> None:
 		"""Sort the acts in the show using couting sort.
@@ -173,7 +174,7 @@ class Show:
 		max_list = max_values(acts_aux, n)
 		sorted_show = None
 
-		for j in range(k):
+		for j in range(k+1):
 			sorted_show = Algorithms.counting_sort(n, acts_aux , j, max_list[j])
 			acts_aux  = sorted_show
 
@@ -181,24 +182,35 @@ class Show:
 		for i in range(n):
 			sorted_show[i] = acts[sorted_show[i][k + 1]]
 
-		self.counting_sorted_scenes = [opening_act].append(sorted_show)
+		sorted = []
+		for sort in sorted_show:
+			sorted.append(sort)
+		sorted.append(opening_act)
+
+		self.counting_sorted_acts = sorted
 
 	def problem_solver(self):
 		"""
 		Still to be implemented.....
 		"""
-		self.merge_sort_show()
+		
+		if self.merge_sorted_acts is None:
+			print("Problem sorted with Counting sort")
+			sorted_acts = self.counting_sorted_acts
+		else:
+			print("Problem sorted with Merge sort")
+			sorted_acts = self.merge_sorted_acts
 
-		participation = Algorithms.participation_per_animal(self.merge_sorted_acts,self.animals)
+		participation = Algorithms.participation_per_animal(sorted_acts,self.animals)
 
 		print("The order of the show should be: ")
 
 		print("Opening act: ")
-		print(self.merge_sorted_acts[self.m - 1])
+		print(sorted_acts[self.m - 1])
 
 		for i in range(0, self.m - 1):
 			print("Act " + str(i + 1) + ": ")
-			print(self.merge_sorted_acts[i])
+			print(sorted_acts[i])
 
 		# Participation per animals
 		print(participation)
@@ -238,14 +250,16 @@ class Show:
 		print(less_participative_animals, min_appearances)		
 
 		#Greatness in scenes
-		pos_great_opening = len(self.merge_sorted_acts)-1
-		great_opening = self.merge_sorted_acts[pos_great_opening].merge_sorted_scenes
+		pos_great_opening = len(sorted_acts)-1
+		if sorted_acts[pos_great_opening].merge_sorted_scenes is None:
+			great_opening = sorted_acts[pos_great_opening].counting_sorted_scenes
+		else:
+			great_opening = sorted_acts[pos_great_opening].merge_sorted_scenes
 		
 		print("Scene with the smallest greatness: ") 
 	
 		less_greatness_scene = great_opening[0]		
 		print(less_greatness_scene)
-
 
 		print("Scene with the largest greatness: ")
 
@@ -257,7 +271,7 @@ class Show:
 		total_greatness = 0
 		num_scenes = 0
 
-		for scene in self.merge_sorted_acts[pos_great_opening]:
+		for scene in sorted_acts[pos_great_opening]:
 			total_greatness += scene.greatness
 			num_scenes += 1
 
