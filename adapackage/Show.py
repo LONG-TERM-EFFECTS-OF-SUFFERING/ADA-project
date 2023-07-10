@@ -1,7 +1,7 @@
 from adapackage.Animal import Animal
 from adapackage.Scene import Scene
 from adapackage.Act import Act
-from adapackage.Algorithms import Algorithms
+from adapackage.Algorithms import Algorithms, Methods
 import random
 
 
@@ -42,11 +42,12 @@ class Show:
 		self.animals: list[Animal] = animals
 		self.merge_sorted_acts: list[Act] = None
 		self.counting_sorted_acts: list[Act] = None
-		self.m = len(acts)
+		self.m = Methods.len(acts)
 
 	def __str__(self):
 		# When acts have not been sorted yet
 		if self.merge_sorted_acts is None and self.counting_sorted_acts is None:
+			print(True)
 			return "{ \n" + "\n".join(str(act) for act in self.acts) + "\n }"
 
 		# When acts were sorted using merge sort
@@ -97,8 +98,7 @@ class Show:
 		return Show(acts,animals)
 
 	def merge_sort_show(self) -> None:
-		"""
-		Sort the acts in the show using merge sort.
+		"""Sort the acts in the show using merge sort.
 
 		First, each of the m acts in the show sorts its own scenes using merge sort.
 		The process of sorting scenes in an act takes O(k * log(k)), and there are m acts, so the total time is O(m * k * log(k)).
@@ -109,7 +109,7 @@ class Show:
 
 		for act in self.acts:
 			act.merge_sort_act() # Sort the scenes in each act using merge sort O(m * k * log(k))
-		
+
 		self.merge_sorted_acts = list(self.acts)
 
 		left: int = 0
@@ -117,6 +117,72 @@ class Show:
 
 		Algorithms.merge_sort(self.merge_sorted_acts, left, right) # Sort the acts using merge sort O(m * log(m))
 	
+	def counting_sort_show(self, k: int) -> None:
+		"""Sort the acts in the show using couting sort.
+
+		First, each of the m acts in the show sorts its own scenes using couting sort.
+		The process of sorting scenes in an act takes O(k), and there are m acts, so the total time is O(m * k).
+
+		Then, the m acts are sorted using couting sort.
+
+		Parameters
+		----------
+		k : int
+			The number of scenes in each (m - 1) act .
+
+		Returns
+		-------
+			NONE
+		"""
+
+		for act in self.acts:
+			act.counting_sort_act() # Sort the scenes in each act using counting sort O(m * k)
+
+		acts = list(self.acts)
+		n = Methods.len(acts)
+		# Remove opening act (it always be in the first position)
+		opening_act = Methods.max(acts)
+
+		for i in range(n):
+			if acts[i].greatness == opening_act.greatness:
+				acts.pop(i)
+				break
+
+		acts_aux = []
+		index = 0
+
+		for act in acts:
+			act_list = act.transform_to_list()
+			act_list.append(index)
+			acts_aux.append(act_list)
+			index += 1
+		# [scene 1 greatness, scene 2 greatness, ... , scene k greatness, act greatness, act object index]
+
+		n -= 1
+		def max_values(acts_aux, n):
+			max_values = []
+
+			for i in range(k + 1): # + 1 because of the greatness
+				column_numbers = []
+				for j in range(n):
+					column_numbers.append(acts_aux[j][i])
+				max_values.append(max(column_numbers))
+
+			return max_values
+
+		max_list = max_values(acts_aux, n)
+		sorted_show = None
+
+		for j in range(k):
+			sorted_show = Algorithms.counting_sort(n, acts_aux , j, max_list[j])
+			acts_aux  = sorted_show
+
+		# Assigning original objects
+		for i in range(n):
+			sorted_show[i] = acts[sorted_show[i][k + 1]]
+
+		self.counting_sorted_scenes = [opening_act].append(sorted_show)
+
 	def problem_solver(self):
 		"""
 		Still to be implemented.....
@@ -179,6 +245,7 @@ class Show:
 	
 		less_greatness_scene = great_opening[0]		
 		print(less_greatness_scene)
+
 
 		print("Scene with the largest greatness: ")
 

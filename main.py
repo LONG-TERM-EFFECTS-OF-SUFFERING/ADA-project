@@ -12,15 +12,21 @@ def main():
 	# print(scene)
 	# scene.sort_scene()
 	# print(scene)
-	
-	#opening: Act = Act.generate_opening_act(3, 2, animals)
+
+
+	# opening: Act = Act.generate_opening_act(3, 2, animals)
+	# opening.counting_sort_act()
+	# print(opening.tranform_to_list())
 	# print(opening)
-	#opening.counting_sort_act()
+	# opening.counting_sort_act()
 	# print(opening)
 
 	show: Show = Show.generate_random_show(m, k, animals)
 	print(show)
-	show.problem_solver()
+	show.counting_sort_show(k)
+	print(show)
+	# show.problem_solver()
+
 
 
 if __name__ == "__main__":

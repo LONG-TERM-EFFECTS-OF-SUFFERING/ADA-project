@@ -131,7 +131,6 @@ class Scene:
 	def transform_to_list(self):
 		[animal1, animal2, animal3] = self.sorted_animals
 
-		#return [int(animal1.greatness), int(animal2.greatness), int(animal3.greatness), int(self.greatness)]
 		return [animal1.greatness, animal2.greatness, animal3.greatness, self.greatness]
 
 	@staticmethod

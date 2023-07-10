@@ -138,7 +138,7 @@ class Act:
 		if self.greatness == other_act.greatness:
 
 			# Reverse the list of scenes to make pairs in descending order of greatness
-			for this_scene, other_scene in zip(reversed(self.merge_sorted_scenes), reversed(other_act.merge_sorted_scenes)):
+			for this_scene, other_scene in Methods.zip(Methods.reverse(self.merge_sorted_scenes), Methods.reverse(other_act.merge_sorted_scenes)):
 
 				if this_scene != other_scene and this_scene > other_scene:
 					return True
@@ -148,6 +148,14 @@ class Act:
 
 		else:
 			return self.greatness > other_act.greatness
+
+	def transform_to_list(self):
+		act_list = []
+		for escene in self.counting_sorted_scenes: # Bounded by k
+			act_list.append(escene.greatness)
+		act_list.append(self.greatness)
+
+		return act_list
 
 	@staticmethod
 	def generate_opening_act(m: int, k: int, animals: list[Animal]) -> 'Act':
@@ -219,18 +227,21 @@ class Act:
 		scenes_aux = []
 		index = 0
 
-		for animal in scenes:
-			scenes_aux.append([animal.transform_to_list(), index])
+		for scene in scenes:
+			scene_list = scene.transform_to_list()
+			scene_list.append(index)
+			scenes_aux.append(scene_list)
 			index += 1
+		# [animal 1 greatness, animal 2 greatness, animal 3 greatness, scene greatness, scene object index]
 
-		n = len(scenes)
+		n = Methods.len(scenes)
 		def max_values(scenes_aux, n):
 			max_values = []
 
 			for i in range(4):
 				column_numbers = []
 				for j in range(n):
-					column_numbers.append(scenes_aux[j][0][i])
+					column_numbers.append(scenes_aux[j][i])
 				max_values.append(max(column_numbers))
 
 			return max_values
@@ -240,8 +251,12 @@ class Act:
 		sorted_act = None
 
 		for j in range(4):
-			sorted_act = Algorithms.counting_sort(n, scenes_aux, j, max_list[j], scenes)
-			act = sorted_act
+			sorted_act = Algorithms.counting_sort(n, scenes_aux, j, max_list[j])
+			scenes_aux = sorted_act
 
-		self.counting_sorted_scenes = sorted_act # O(k)
+		# Assigning original objects
+		for i in range(n):
+			sorted_act[i] = scenes[sorted_act[i][4]]
+
+		self.counting_sorted_scenes = sorted_act # O(n)
 
