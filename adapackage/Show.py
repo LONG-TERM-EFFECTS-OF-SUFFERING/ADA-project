@@ -252,30 +252,29 @@ class Show:
 
 		print("Animals that acted in the most scenes: ")
 
-		most_participative_animals = []
+		most_participative_animals = set()
 
 		for animal in participation:
 			if(participation[animal] == max_appearances):
-				most_participative_animals.append(animal)
+				most_participative_animals.add(animal)
 
 		print(most_participative_animals, max_appearances)
 
 		print("Animals that acted in the least scenes: ")
 
-		less_participative_animals = []
+		less_participative_animals = set()
 
 		for animal in participation:
 			if(participation[animal] == min_appearances):
-				less_participative_animals.append(animal)
+				less_participative_animals.add(animal)
 
 		print(less_participative_animals, min_appearances)		
 
 		#Greatness in scenes
-		pos_great_opening = len(sorted_acts)-1
-		if sorted_acts[pos_great_opening].merge_sorted_scenes is None:
-			great_opening = sorted_acts[pos_great_opening].counting_sorted_scenes
+		if sorted_acts[self.m-1].merge_sorted_scenes is None:
+			great_opening = sorted_acts[self.m-1].counting_sorted_scenes
 		else:
-			great_opening = sorted_acts[pos_great_opening].merge_sorted_scenes
+			great_opening = sorted_acts[self.m-1].merge_sorted_scenes
 		
 		print("Scene with the smallest greatness: ") 
 	
@@ -284,17 +283,13 @@ class Show:
 
 		print("Scene with the largest greatness: ")
 
-		largest_greatness_scene = great_opening[len(great_opening)-1]
+		largest_greatness_scene = great_opening[((self.m-1)*self.k)-1]
 		print(largest_greatness_scene)
 
 		print("The average greatness of the show is: ")
 
-		total_greatness = 0
-		num_scenes = 0
-
-		for scene in sorted_acts[pos_great_opening]:
-			total_greatness += scene.greatness
-			num_scenes += 1
+		total_greatness = sorted_acts[self.m-1].greatness
+		num_scenes = (self.m-1)*self.k
 
 		averague = total_greatness/num_scenes
 		print(averague)
