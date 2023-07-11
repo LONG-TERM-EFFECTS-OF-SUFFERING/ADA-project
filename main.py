@@ -22,7 +22,7 @@ def main():
 	# print(opening)
 
 	show: Show = Show.generate_random_show(m, k, animals)
-	show.counting_sort_show(k)
+	show.counting_sort_show()
 	show.problem_solver()
 
 

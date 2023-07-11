@@ -22,12 +22,18 @@ class Show:
 	counting_sorted_acts : list
 		The list of acts in the show ordered by greatness using counting sort as the sorting algorithm.
 
+	m : int
+		The number or acts in the show.
+	
+	k : int
+		The numbers of scenes in (m-1) acts, the opening act have (m-1)*k scenes 
+
 	Methods
 	-------
 
 	"""
 
-	def __init__(self, acts: list[Act], animals: list[Animal]):
+	def __init__(self, acts: list[Act], animals: list[Animal], k: int):
 		"""
 		Constructor for a show.
 		- Uses a set as the unsorted data structure for the acts.
@@ -35,14 +41,19 @@ class Show:
 
 		Parameters
 		----------
-		acts : set
-			The set of different acts in the show.
+		acts : list
+			The list of different acts in the show.
+		animals : list[Animal]
+			The list with all of the animals in the show.
+		k : int
+			The number of scenes per act (except opening act that have (m-1)*k scenes)
 		"""
 		self.acts: set[Act] = acts
 		self.animals: list[Animal] = animals
 		self.merge_sorted_acts: list[Act] = None
 		self.counting_sorted_acts: list[Act] = None
 		self.m = Methods.len(acts)
+		self.k = k
 
 	def __str__(self):
 		# When acts have not been sorted yet
@@ -94,7 +105,7 @@ class Show:
 
 			acts.add(Act(scenes))
 
-		return Show(acts,animals)
+		return Show(acts,animals,k)
 
 	def merge_sort_show(self) -> None:
 		"""Sort the acts in the show using merge sort.
@@ -116,7 +127,7 @@ class Show:
 
 		Algorithms.merge_sort(self.merge_sorted_acts, left, right) # Sort the acts using merge sort O(m * log(m))
 	
-	def counting_sort_show(self, k: int) -> None:
+	def counting_sort_show(self) -> None:
 		"""Sort the acts in the show using couting sort.
 
 		First, each of the m acts in the show sorts its own scenes using couting sort.
@@ -161,7 +172,7 @@ class Show:
 		def max_values(acts_aux, n):
 			max_values = []
 
-			for i in range(k + 1): # + 1 because of the greatness
+			for i in range(self.k + 1): # + 1 because of the greatness
 				column_numbers = []
 				for j in range(n):
 					column_numbers.append(acts_aux[j][i])
@@ -172,13 +183,13 @@ class Show:
 		max_list = max_values(acts_aux, n)
 		sorted_show = None
 
-		for j in range(k+1):
+		for j in range(self.k+1):
 			sorted_show = Algorithms.counting_sort(n, acts_aux , j, max_list[j])
 			acts_aux  = sorted_show
 
 		# Assigning original objects
 		for i in range(n):
-			sorted_show[i] = acts[sorted_show[i][k + 1]]
+			sorted_show[i] = acts[sorted_show[i][self.k + 1]]
 
 		sorted = []
 		for sort in sorted_show:
@@ -188,8 +199,22 @@ class Show:
 		self.counting_sorted_acts = sorted
 
 	def problem_solver(self):
-		"""
-		Still to be implemented.....
+		"""Shows the problem solved and what sorting algorithm was used to solve it.
+
+		It also displays other relevant information about the show:
+			- Animals that appear in most scenes.
+			- Animals that appear in fewer scenes.
+			- Scene with the smallest greatness.
+			- Scene with the biggest greatness.
+			- Greatness averague of scenes
+
+		Parameters
+		----------
+			NONE
+
+		Returns
+		-------
+			NONE
 		"""
 		
 		if self.merge_sorted_acts is None:
@@ -211,8 +236,6 @@ class Show:
 			print(sorted_acts[i])
 
 		# Participation per animals
-		print(participation)
-		
 		i = 0
 
 		for animal in participation:

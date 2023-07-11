@@ -163,16 +163,29 @@ class Algorithms:
 		return sorted_list
 	
 	@staticmethod
-	def participation_per_animal(sorted_list, animals) -> dict:
-		"""
-		Still to be implemented.....
+	def participation_per_animal(show, animals) -> dict:
+		""" Calculate how many times does an animal appear in a specific show
+
+		Parameters
+		----------
+		show : list[Act]
+			The show with every act in it.
+
+		animals: list
+			The list with all of the animals in the show.
+
+		Returns
+		-------
+		participation : dict
+			A dictionary where the key is the name of an animal and its value is the number of times that the animal
+			appears in the show.
 		"""
 
 		dictionary = {}
 		for animal in animals:
 			dictionary[animal.name] = 0
 
-		for act in sorted_list:
+		for act in show:
 			for scene in act:
 				for animal in scene:
 					dictionary[animal.name] += 1
