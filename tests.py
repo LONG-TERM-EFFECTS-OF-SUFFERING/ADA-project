@@ -1,7 +1,6 @@
 from adapackage import Show, Animal, Scene, Act
 
 def test1() -> bool:
-	n = 6
 	m = 3
 	k = 2
 
@@ -15,81 +14,119 @@ def test1() -> bool:
 	]
 
 
-	opening_act_input = [
-		Scene({animals[5], animals[3], animals[4]}), # "Tapir", "Nutria", "Perro"
-		Scene({animals[5], animals[4], animals[0]}), # "Tapir", "Perro", "Gato"
-		Scene({animals[2], animals[5], animals[0]}), # "Ciempies", "Tapir", "Gato"
-		Scene({animals[0], animals[2], animals[1]})  # "Gato", "Ciempies", "Libelula"
-	]
+	opening_act_input = Act(
+		set([
+			Scene({animals[5], animals[3], animals[4]}), # "Tapir", "Nutria", "Perro"
+			Scene({animals[5], animals[4], animals[0]}), # "Tapir", "Perro", "Gato"
+			Scene({animals[2], animals[5], animals[0]}), # "Ciempies", "Tapir", "Gato"
+			Scene({animals[0], animals[2], animals[1]})  # "Gato", "Ciempies", "Libelula"
+		])
+	)
 
 	acts_input = [
-		[
-			opening_act_input[0], # "Tapir", "Nutria", "Perro"
-			opening_act_input[2]  # "Ciempies", "Tapir", "Gato"
-		],
-		[
-			opening_act_input[3], # "Gato", "Ciempies", "Libelula"
-			opening_act_input[1]  # "Tapir", "Perro", "Gato"
-		]
+		opening_act_input,
+		Act(
+			set([
+				Scene({animals[5], animals[3], animals[4]}), # "Tapir", "Nutria", "Perro"
+				Scene({animals[2], animals[5], animals[0]})  # "Ciempies", "Tapir", "Gato"
+			])
+		),
+		Act(
+			set([
+				Scene({animals[0], animals[2], animals[1]}), # "Gato", "Ciempies", "Libelula"
+				Scene({animals[5], animals[4], animals[0]})  # "Tapir", "Perro", "Gato"
+			])
+		)
 	]
 
-	show = Show(n, m, k, animals, greatness, opening_act_input, acts_input)
+	show = Show(acts_input, animals, m, k)
 
 	opening_act = [
-		[animals[2], animals[1], animals[0]], # "Ciempies", "Libelula", "Gato"
-		[animals[2], animals[0], animals[5]], # "Ciempies", "Gato", "Tapir"
-		[animals[0], animals[4], animals[5]], # "Gato", "Perro", "Tapir"
-		[animals[4], animals[5], animals[3]]  # "Perro", "Tapir", "Nutria"
+		["Ciempies", "Libelula", "Gato"],
+		["Ciempies", "Gato", "Tapir"],
+		["Gato", "Perro", "Tapir"],
+		["Perro", "Tapir", "Nutria"]
 	]
 
 	acts = [
 		[
-			[animals[2], animals[1], animals[0]], # "Ciempies", "Libelula", "Gato"
-			[animals[0], animals[4], animals[5]]   # "Gato", "Perro", "Tapir"
+			["Ciempies", "Libelula", "Gato"],
+			["Gato", "Perro", "Tapir"]
 		],
 		[
-			[animals[2], animals[0], animals[5]], # "Ciempies", "Gato", "Tapir"
-			[animals[4], animals[5], animals[3]] # "Perro", "Tapir", "Nutria"
-		]
+			["Ciempies", "Gato", "Tapir"],
+			["Perro", "Tapir", "Nutria"]
+		],
+		opening_act
 	]
 
-	most_participating_animals = [animals[0], animals[5]] # "Gato", "Tapir"
-	less_participating_animals = [animals[1]] # "Libelula"
+	most_participating_animals = ["Gato", "Tapir"]
+	less_participating_animals = ["Libelula"]
 
-	greatness_min_scene = [animals[2], animals[1], animals[0]] # "Ciempies", "Libelula", "Gato"
-	greatness_max_scene = [animals[4], animals[5], animals[0]] # "Perro", "Tapir", "Gato"
+	greatness_min_scene = ["Ciempies", "Libelula", "Gato"]
+	greatness_max_scene = ["Perro", "Tapir", "Gato"]
 
 	greatness_average = 10.5
 
-	return (
-			opening_act == show.opening_act and
-			acts == show.acts and
-			most_participating_animals == show.most_participating_animals and
-			less_participating_animals == show.less_participating_animals and
-			greatness_min_scene == show.greatness_min_scene and
-			greatness_max_scene == show.greatness_max_scene and
-			greatness_average == show.greatness_average
-		)
-
+	show.counting_sort_show()
+	show.problem_solver()
 
 def test2() -> bool:
-	n = 9
 	m = 4
 	k = 3
 
-	animals = ["leon", "pantera negra", "cebra", "cocodrilo", "boa", "loro", "caiman", "tigre", "capibara"]
-
-	greatness = [9, 7, 6, 5, 4, 2, 3, 8, 1]
-
-	opening_act_input = [["caiman", "capibara", "loro"], ["boa", "caiman", "capibara"], ["cocodrilo", "capibara", "loro"], ["pantera negra", "cocodrilo", "loro"], ["tigre", "loro", "capibara"], ["leon", "caiman", "loro"], ["leon", "cocodrilo", "boa"], ["leon", "pantera negra", "cebra"], ["tigre", "cebra", "pantera negra"]]
-
-	acts_input = [
-		[["caiman", "capibara", "loro"], ["tigre", "loro", "capibara"], ["tigre", "cebra", "pantera negra"]],
-		[["pantera negra", "cocodrilo", "loro"], ["leon", "pantera negra", "cebra"], ["cocodrilo", "capibara", "loro"]],
-		[["boa", "caiman", "capibara"], ["leon", "caiman", "loro"], ["leon", "cocodrilo", "boa"]]
+	animals = [
+		Animal("Leon", 9),
+		Animal("Pantera negra", 7),
+		Animal("Cebra", 6),
+		Animal("Cocodrilo", 5),
+		Animal("Boa", 4),
+		Animal("Loro", 2),
+		Animal("Caiman", 3),
+		Animal("Tigre", 8),
+		Animal("Capibara", 1)
 	]
 
-	show = Show(n, m, k, animals, greatness, opening_act_input, acts_input)
+	opening_act_input = Act(
+		set([
+			Scene({animals[6], animals[8], animals[5]}), # "Caiman", "Capibara", "Loro"
+			Scene({animals[4], animals[6], animals[8]}), # "Boa", "Caiman", "Capibara"
+			Scene({animals[3], animals[8], animals[5]}), # "Cocodrilo", "Capibara", "Loro"
+			Scene({animals[1], animals[3], animals[5]}), # "Pantera negra", "Cocodrilo", "Loro"
+			Scene({animals[7], animals[5], animals[8]}), # "Tigre", "Loro", "Capibara"
+			Scene({animals[0], animals[6], animals[5]}), # "Leon", "Caiman", "Loro"
+			Scene({animals[0], animals[3], animals[4]}), # "Leon", "Cocodrilo", "Boa"
+			Scene({animals[0], animals[1], animals[2]}), # "Leon", "Pantera negra", "Cebra"
+			Scene({animals[7], animals[2], animals[1]}), # "Tigre", "Cebra", "Pantera negra"
+		])
+	)
+
+	acts_input = [
+		opening_act_input,
+		Act(
+			set([
+				Scene({animals[6], animals[8], animals[5]}), # "Caiman", "Capibara", "Loro"
+				Scene({animals[7], animals[5], animals[8]}), # "Tigre", "Loro", "Capibara"
+				Scene({animals[7], animals[2], animals[1]}), # "Tigre", "Cebra", "Pantera negra"
+			])
+		),
+		Act(
+			set([
+				Scene({animals[1], animals[3], animals[5]}), # "Pantera negra", "Cocodrilo", "Loro"
+				Scene({animals[0], animals[1], animals[2]}), # "Leon", "Pantera negra", "Cebra"
+				Scene({animals[3], animals[8], animals[5]}), # "Cocodrilo", "Capibara", "Loro"
+			])
+		),
+		Act(
+			set([
+				Scene({animals[4], animals[6], animals[8]}), # "Boa", "Caiman", "Capibara"
+				Scene({animals[0], animals[6], animals[5]}), # "Leon", "Caiman", "Loro"
+				Scene({animals[0], animals[3], animals[4]}), # "Leon", "Cocodrilo", "Boa"
+			])
+		),
+	]
+
+	show = Show(acts_input, animals, m, k)
 
 	opening_act = [
 		["capibara", "loro", "caiman"],
@@ -118,7 +155,8 @@ def test2() -> bool:
 			["capibara", "loro", "cocodrilo"],
 			["loro", "cocodrilo", "pantera negra"],
 			["cebra", "pantera negra", "leon"]
-		]
+		],
+		opening_act
 	]
 
 	most_participating_animals = ["loro"]
@@ -129,12 +167,8 @@ def test2() -> bool:
 
 	greatness_average = 13.56
 
-	return (
-			opening_act == show.opening_act and
-			acts == show.acts and
-			most_participating_animals == show.most_participating_animals and
-			less_participating_animals == show.less_participating_animals and
-			greatness_min_scene == show.greatness_min_scene and
-			greatness_max_scene == show.greatness_max_scene and
-			greatness_average == show.greatness_average
-		)
+	show.merge_sort_show()
+	show.problem_solver()
+
+#test1()
+test2()

@@ -110,7 +110,7 @@ class Act:
 		if self.greatness == other_act.greatness:
 
 			# Reverse the list of scenes to make pairs in descending order of greatness
-			for this_scene, other_scene in Methods.zip(Methods.reverse(self.merge_sorted_scenes), Methods.reversed(other_act.merge_sorted_scenes)):
+			for this_scene, other_scene in Methods.zip(Methods.reverse(self.merge_sorted_scenes), Methods.reverse(other_act.merge_sorted_scenes)):
 				if this_scene != other_scene and this_scene < other_scene:
 					return True
 
@@ -201,13 +201,12 @@ class Act:
 		Then, the k scenes of the act are sorted using merge sort.
 		The merge sort algorithm follows a divide and conquer technique, so the time complexity of this part is O(k * log(k)).
 		"""
-		for scene in self.scenes:
-			scene.sort_scene() # Sort the animals in each scene O(k)
+		self.merge_sorted_scenes = list(self.scenes) # The scenes are already sorted O(k)
 
 		self.merge_sorted_scenes = list(self.scenes)
 
 		left: int = 0
-		right: int = len(self.merge_sorted_scenes) - 1
+		right: int = Methods.len(self.merge_sorted_scenes) - 1
 
 		Algorithms.merge_sort(self.merge_sorted_scenes, left, right) # O(k * log(k))
 
@@ -220,9 +219,7 @@ class Act:
 		Then, the k scenes of the act are sorted using counting sort.
 		The total cost of this part is O(k).
 		"""
-
-		for scene in self.scenes: scene.sort_scene() # O(k)
-		scenes = list(self.scenes)
+		scenes = list(self.scenes) # The scenes are already sorted O(k)
 
 		scenes_aux = []
 		index = 0
@@ -242,7 +239,7 @@ class Act:
 				column_numbers = []
 				for j in range(n):
 					column_numbers.append(scenes_aux[j][i])
-				max_values.append(max(column_numbers))
+				max_values.append(Methods.max(column_numbers))
 
 			return max_values
 

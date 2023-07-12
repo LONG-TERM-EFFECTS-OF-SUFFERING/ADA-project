@@ -26,6 +26,5 @@ def main():
 	show.problem_solver()
 
 
-
 if __name__ == "__main__":
 	main()
