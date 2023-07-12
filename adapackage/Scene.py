@@ -23,7 +23,9 @@ class Scene:
 
 	Methods
 	-------
+	generate_random_scene(animals: list[Animal]) -> Scene
 
+	sort_scene() -> None
 	"""
 
 	def __init__(self, animals: set[Animal]):

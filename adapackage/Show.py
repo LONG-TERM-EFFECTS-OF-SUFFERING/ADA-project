@@ -30,6 +30,13 @@ class Show:
 
 	Methods
 	-------
+	generate_random_show(m: int, k: int, animals: list[Animal]) -> Show
+
+	merge_sort_show()
+
+	counting_sort_show()
+
+	problem_solver()
 	"""
 
 	def __init__(self, acts: list[Act], animals: list[Animal], m : int, k: int):

@@ -25,6 +25,13 @@ class Act:
 
 	Methods
 	-------
+	generate_opening_act(m: int, k: int, animals: list[Animal]) -> Act
+
+	transform_to_list() -> list[Scene]
+
+	merge_sort_act()
+
+	counting_sort_act()
 	"""
 
 	def __init__(self, scenes: set[Scene]):

@@ -15,7 +15,7 @@ class Animal:
 
 	Methods
 	-------
-
+	generate_random_animals(n: int) -> set[Animal]
 	"""
 
 	POSSIBLE_ANIMALS_NAMES: list[str] = [
@@ -68,25 +68,25 @@ class Animal:
 		return self.greatness >= other_animal.greatness
 
 	@staticmethod
-	def generate_random_animals(n: int) -> list['Animal']:
-		""" Generate a list of n random different animals.
+	def generate_random_animals(a: int) -> list['Animal']:
+		""" Generate a list of "a" random different animals.
 
 		Parameters
 		----------
-		n : int
+		a : int
 			The number of animals to generate.
 
 		Returns
 		-------
 		animals : list
-			list of n random non-repeated animals already sorted in ascending order by greatness.
+			list of "a" random non-repeated animals already sorted in ascending order by greatness.
 		"""
 
 		animals: list[Animal] = []
 		i = 1
 
-		if n <= len(Animal.POSSIBLE_ANIMALS_NAMES):
-			while len(animals) < n:
+		if a <= len(Animal.POSSIBLE_ANIMALS_NAMES):
+			while len(animals) < a:
 				animal = Animal(random.choice(Animal.POSSIBLE_ANIMALS_NAMES), i)
 
 				if animal.name not in [element.name for element in animals]:
@@ -94,7 +94,7 @@ class Animal:
 					i += 1
 
 		else:
-			while len(animals) < n:
+			while len(animals) < a:
 				animal: Animal = Animal("Animal" + str(i), i)
 				animals.append(animal)
 				i += 1
