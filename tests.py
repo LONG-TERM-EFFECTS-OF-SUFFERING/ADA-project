@@ -1,6 +1,6 @@
 from adapackage import Show, Animal, Scene, Act
 
-def test1() -> bool:
+def test1():
 	m = 3
 	k = 2
 
@@ -49,6 +49,7 @@ def test1() -> bool:
 	]
 
 	acts = [
+		opening_act,
 		[
 			["Ciempies", "Libelula", "Gato"],
 			["Gato", "Perro", "Tapir"]
@@ -56,8 +57,7 @@ def test1() -> bool:
 		[
 			["Ciempies", "Gato", "Tapir"],
 			["Perro", "Tapir", "Nutria"]
-		],
-		opening_act
+		]
 	]
 
 	most_participating_animals = ["Gato", "Tapir"]
@@ -71,7 +71,7 @@ def test1() -> bool:
 	show.counting_sort_show()
 	show.problem_solver()
 
-def test2() -> bool:
+def test2():
 	m = 4
 	k = 3
 
@@ -141,6 +141,7 @@ def test2() -> bool:
 	]
 
 	acts = [
+		opening_act,
 		[
 			["capibara", "loro", "caiman"],
 			["capibara", "loro", "trigre"],
@@ -155,8 +156,7 @@ def test2() -> bool:
 			["capibara", "loro", "cocodrilo"],
 			["loro", "cocodrilo", "pantera negra"],
 			["cebra", "pantera negra", "leon"]
-		],
-		opening_act
+		]
 	]
 
 	most_participating_animals = ["loro"]
@@ -170,5 +170,194 @@ def test2() -> bool:
 	show.merge_sort_show()
 	show.problem_solver()
 
-#test1()
-test2()
+def test3():
+	m = 3
+	k = 3
+
+	animals = [
+		Animal("Seal", 1),
+		Animal("Bee", 3),
+		Animal("Monkey", 2),
+		Animal("Caterpillar", 4),
+		Animal("Cicada", 5),
+	]
+
+	opening_act_input = Act(
+		set([
+			Scene({animals[0], animals[3], animals[4]}),  # "Seal", "Caterpillar", "Cicada"
+			Scene({animals[0], animals[2], animals[3]}),  # "Seal", "Monkey", "Caterpillar"
+			Scene({animals[2], animals[1], animals[3]}),  # "Monkey", "Bee", "Caterpillar"
+			Scene({animals[2], animals[1], animals[4]}),  # "Monkey", "Bee", "Cicada"
+			Scene({animals[0], animals[1], animals[3]}),  # "Seal", "Bee", "Caterpillar"
+			Scene({animals[0], animals[2], animals[1]})   # "Seal", "Monkey", "Bee"
+		])
+	)
+
+	acts_input = [
+		opening_act_input,
+		Act(
+			set([
+				Scene({animals[2], animals[1], animals[3]}),  # "Monkey", "Bee", "Caterpillar"
+				Scene({animals[0], animals[2], animals[3]}),  # "Seal", "Monkey", "Caterpillar"
+				Scene({animals[0], animals[2], animals[1]})   # "Seal", "Monkey", "Bee"
+			])
+		),
+		Act(
+			set([
+				Scene({animals[0], animals[3], animals[4]}),  # "Seal", "Caterpillar", "Cicada"
+				Scene({animals[0], animals[1], animals[3]}),  # "Seal", "Bee", "Caterpillar"
+				Scene({animals[2], animals[1], animals[4]}),  # "Monkey", "Bee", "Cicada"
+			])
+		)
+	]
+
+	show = Show(acts_input, animals, m, k)
+
+	opening_act = [
+		["Seal", "Monkey", "Bee"],
+		["Seal", "Monkey", "Caterpillar"],
+		["Seal", "Bee", "Caterpillar"],
+		["Monkey", "Bee", "Caterpillar"],
+		["Monkey", "Bee", "Cicada"],
+		["Seal", "Caterpillar", "Cicada"]
+	]
+
+	acts = [
+		opening_act,
+		[
+			["Seal", "Monkey", "Bee"],
+			["Seal", "Monkey", "Caterpillar"],
+			["Monkey", "Bee", "Caterpillar"]
+		],
+		[
+			["Seal", "Bee", "Caterpillar"],
+			["Monkey", "Bee", "Cicada"],
+			["Seal", "Caterpillar", "Cicada"]
+		]
+	]
+
+	most_participating_animals = ["Bee", "Monkey", "Caterpillar"]
+	less_participating_animals = ["Cicada"]
+
+	greatness_min_scene = ["Seal", "Monkey", "Bee"]
+	greatness_max_scene = ["Seal", "Caterpillar", "Cicada"]
+
+	greatness_average = 8.34
+
+	show.counting_sort_show()
+	show.problem_solver()
+
+def test4():
+	m = 4
+	k = 4
+
+	animals = [
+		Animal("Sheep", 1),
+		Animal("Ostrich", 4),
+		Animal("Dragonfly", 6),
+		Animal("Tapir", 2),
+		Animal("Squirrel", 5),
+		Animal("Dolphin", 7),
+		Animal("Elephant", 3)
+	]
+
+	opening_act_input = Act(
+		set([
+			Scene({animals[0], animals[4], animals[2]}), # "Sheep", "Squirrel", "Dragonfly"
+			Scene({animals[0], animals[1], animals[5]}), # "Sheep", "Ostrich", "Dolphin"
+			Scene({animals[0], animals[3], animals[5]}), # "Sheep", "Tapir", "Dolphin"
+			Scene({animals[1], animals[2], animals[5]}), # "Ostrich", "Dragonfly", "Dolphin"
+			Scene({animals[3], animals[6], animals[5]}), # "Tapir", "Elephant", "Dolphin"
+			Scene({animals[3], animals[6], animals[2]}), # "Tapir", "Elephant", "Dragonfly"
+			Scene({animals[1], animals[4], animals[5]}), # "Ostrich", "Squirrel", "Dolphin"
+			Scene({animals[3], animals[4], animals[2]}), # "Tapir", "Squirrel", "Dragonfly"
+			Scene({animals[0], animals[6], animals[2]}), # "Sheep", "Elephant", "Dragonfly"
+			Scene({animals[6], animals[2], animals[5]}), # "Elephant", "Dragonfly", "Dolphin"
+			Scene({animals[0], animals[1], animals[2]}), # "Sheep", "Ostrich", "Dragonfly"
+			Scene({animals[3], animals[4], animals[5]})  # "Tapir", "Squirrel", "Dolphin"
+		])
+	)
+
+	acts_input = [
+		opening_act_input,
+		Act(
+			set([
+				Scene({animals[0], animals[1], animals[2]}), # "Sheep", "Ostrich", "Dragonfly"
+				Scene({animals[3], animals[4], animals[2]}), # "Tapir", "Squirrel", "Dragonfly"
+				Scene({animals[0], animals[3], animals[5]}), # "Sheep", "Tapir", "Dolphin"
+				Scene({animals[3], animals[4], animals[5]})  # "Tapir", "Squirrel", "Dolphin"
+			])
+		),
+		Act(
+			set([
+				Scene({animals[0], animals[6], animals[2]}),  # "Sheep", "Elephant", "Dragonfly"
+				Scene({animals[1], animals[4], animals[5]}),  # "Ostrich", "Squirrel", "Dolphin"
+				Scene({animals[0], animals[1], animals[5]}),  # "Sheep", "Ostrich", "Dolphin"
+				Scene({animals[1], animals[2], animals[5]})   # "Ostrich", "Dragonfly", "Dolphin"
+			])
+		),
+		Act(
+			set([
+				Scene({animals[3], animals[6], animals[5]}),  # "Tapir", "Elephant", "Dolphin"
+				Scene({animals[3], animals[6], animals[2]}),  # "Tapir", "Elephant", "Dragonfly"
+				Scene({animals[0], animals[4], animals[2]}),  # "Sheep", "Squirrel", "Dragonfly"
+				Scene({animals[6], animals[2], animals[5]})   # "Elephant", "Dragonfly", "Dolphin"
+			])
+		),
+	]
+
+	show = Show(acts_input, animals, m, k)
+
+	opening_act = [
+		["Sheep", "Elephant", "Dragonfly"],
+		["Sheep", "Tapir", "Dolphin"],
+		["Tapir", "Elephant", "Dragonfly"],
+		["Sheep", "Ostrich", "Dragonfly"],
+		["Sheep", "Squirrel", "Dragonfly"],
+		["Tapir", "Elephant", "Dolphin"],
+		["Tapir", "Squirrel", "Dragonfly"],
+		["Sheep", "Ostrich", "Dolphin"],
+		["Tapir", "Squirrel", "Dolphin"],
+		["Ostrich", "Squirrel", "Dolphin"],
+		["Elephant", "Dragonfly", "Dolphin"],
+		["Ostrich", "Dragonfly", "Dolphin"]
+	]
+
+	acts = [
+		opening_act,
+		[
+			["Sheep", "Tapir", "Dolphin"],
+			["Sheep", "Ostrich", "Dragonfly"],
+			["Tapir", "Squirrel", "Dragonfly"],
+			["Tapir", "Squirrel", "Dolphin"]
+		],
+		[
+			["Tapir", "Elephant", "Dragonfly"],
+			["Sheep", "Squirrel", "Dragonfly"],
+			["Tapir", "Elephant", "Dolphin"],
+			["Elephant", "Dragonfly", "Dolphin"]
+		],
+		[
+			["Sheep", "Elephant", "Dragonfly"],
+			["Sheep", "Ostrich", "Dolphin"],
+			["Ostrich", "Squirrel", "Dolphin"],
+			["Ostrich", "Dragonfly", "Dolphin"]
+		]
+	]
+
+	most_participating_animals = ["Dragonfly", "Dolphin"]
+	less_participating_animals = ["Squirrel", "Elephant", "Ostrich"]
+
+	greatness_min_scene = ["Sheep", "Elephant", "Dragonfly"]
+	greatness_max_scene = ["Ostrich", "Dragonfly", "Dolphin"]
+
+	greatness_average = 12.84
+
+	show.merge_sort_show()
+	show.problem_solver()
+
+
+# test1()
+# test2()
+# test3()
+# test4()
