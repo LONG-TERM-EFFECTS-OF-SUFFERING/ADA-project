@@ -14,18 +14,16 @@ def main():
 	# print(scene)
 
 
-	# opening: Act = Act.generate_opening_act(3, 2, animals)
-	# opening.counting_sort_act()
-	# print(opening.tranform_to_list())
-	# print(opening)
-	# opening.counting_sort_act()
-	# print(opening)
+	opening: Act = Act.generate_opening_act(3, 2, animals)
+	print(opening)
+	opening.merge_sort_act()
+	print(opening)
 
-	show: Show = Show.generate_random_show(m, k, animals)
-	print(show)
-	show.merge_sort_show()
-	# show.counting_sort_show()
-	show.problem_solver()
+	# show: Show = Show.generate_random_show(m, k, animals)
+	# print(show)
+	# show.merge_sort_show()
+	# # show.counting_sort_show()
+	# show.problem_solver()
 
 
 if __name__ == "__main__":

@@ -208,9 +208,7 @@ class Act:
 		Then, the k scenes of the act are sorted using merge sort.
 		The merge sort algorithm follows a divide and conquer technique, so the time complexity of this part is O(k * log(k)).
 		"""
-		self.merge_sorted_scenes = list(self.scenes) # The scenes are already sorted O(k)
-
-		self.merge_sorted_scenes = list(self.scenes)
+		self.merge_sorted_scenes = list(self.scenes) # The animals in each scene are already sorted in O(k)
 
 		left: int = 0
 		right: int = Methods.len(self.merge_sorted_scenes) - 1

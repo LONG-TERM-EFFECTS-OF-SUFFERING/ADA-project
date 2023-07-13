@@ -16,6 +16,9 @@ class Show:
 	acts : set
 		The set of different acts in the show.
 
+	animals : list
+		The list with all of the animals in the show.
+
 	merge_sorted_acts : list
 		The list of acts in the show ordered by greatness using merge sort as the sorting algorithm.
 
